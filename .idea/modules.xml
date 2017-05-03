@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/file-generate.iml" filepath="$PROJECT_DIR$/.idea/modules/file-generate.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/file-generate_main.iml" filepath="$PROJECT_DIR$/.idea/modules/file-generate_main.iml" group="file-generate" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/file-generate_test.iml" filepath="$PROJECT_DIR$/.idea/modules/file-generate_test.iml" group="file-generate" />
+    </modules>
+  </component>
+</project>

@@ -20,10 +20,11 @@ public class MainGen {
         String fileName = gen.createFileName(fixedCalls, "cdr");
         gen.createFile(dirPath, fileName);
         gen.addInFile(fixedCalls, fileName, dirPath);
+        System.out.println(fixedCalls.timestamp);
     }
 
     private String createDir() {
-        String dirPath = "/home/rocky-po/cdrArchive";
+        String dirPath = "/home/kosarim/cdrArchive/";
         File pathToDir = new File(dirPath);
         pathToDir.mkdirs();
         return dirPath;
@@ -42,7 +43,7 @@ public class MainGen {
         if (obj instanceof FixedCalls) {
             fileName.append("fixed_calls_");
         } else if (obj instanceof MobileCalls) {
-            fileName.append("mobile_calls");
+            fileName.append("mobile_calls_");
         } else if (obj instanceof SmsSorm1) {
             fileName.append("sms_sorm1_");
         }
@@ -70,8 +71,8 @@ public class MainGen {
         Class clazz = obj.getClass().getSuperclass();
         if (obj instanceof FixedCalls
                 || obj instanceof MobileCalls) {
+            ((AbstractCall) obj).code = "65";
             for (int i = 0; i < 4; i++) {
-                ((AbstractCall) obj).code = "65";
                 writeLine(clazz, dirPath, fileName, obj, i);
                 if (Integer.parseInt(((AbstractCall) obj).code) == 66) {
                     ((AbstractCall) obj).code = "70";
@@ -86,17 +87,22 @@ public class MainGen {
             ((SmsSorm1) obj).messageNumber = "1";
             for (int i = 0; i < Integer.parseInt(((SmsSorm1) obj).messagesTotal); i++) {
                 writeLine(clazz, dirPath, fileName, obj, i);
-                Integer.toString(Integer.parseInt(((SmsSorm1) obj).messageNumber) + 1 );
+                Integer.toString(Integer.parseInt(((SmsSorm1) obj).messageNumber) + 1);
             }
         }
     }
 
-    private void writeLine(Class clazz, String dirPath, String fileName, Object obj, int i){
+    private void writeLine(Class clazz, String dirPath, String fileName, Object obj, int i) {
         Field[] fields = clazz.getDeclaredFields();
+        String text;
         try (FileOutputStream fos = new FileOutputStream(dirPath + fileName)) {
-            for ( Field field : fields ) {
+            for (Field field : fields) {
                 field.setAccessible(true);
-                String text = field.get(obj) + ";";
+                if (field.get(obj) != null) {
+                    text = field.get(obj) + ";";
+                } else {
+                    text = ";";
+                }
                 byte[] buffer = text.getBytes();
                 fos.write(buffer);
             }

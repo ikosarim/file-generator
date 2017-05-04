@@ -8,7 +8,7 @@ import java.util.Calendar;
 public abstract class AllCommunications {
     Calendar calendar = Calendar.getInstance();
 
-    public Long timestamp = System.currentTimeMillis();
+    public String timestamp = Long.toString(System.currentTimeMillis());
     public String systemId = "3";
     public String liId = "1";
     public String objectType = "1";

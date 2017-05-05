@@ -20,7 +20,6 @@ public class MainGen {
         String fileName = gen.createFileName(fixedCalls, "cdr");
         gen.createFile(dirPath, fileName);
         gen.addInFile(fixedCalls, fileName, dirPath);
-        System.out.println(fixedCalls.timestamp);
     }
 
     private String createDir() {
@@ -68,7 +67,7 @@ public class MainGen {
     }
 
     private void addInFile(Object obj, String fileName, String dirPath) {
-        Class clazz = obj.getClass().getSuperclass();
+        Class clazz = obj.getClass().getSuperclass().getSuperclass();
         if (obj instanceof FixedCalls
                 || obj instanceof MobileCalls) {
             ((AbstractCall) obj).code = "65";

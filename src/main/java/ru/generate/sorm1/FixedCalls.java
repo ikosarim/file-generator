@@ -5,9 +5,9 @@ package ru.generate.sorm1;
  */
 public class FixedCalls extends AbstractCall {
 
-    //    12FSP
+    //    11FSP
     public String pnASignCount = "11";
-    //    13FSP
+    //    12FSP
     public String cgpn;
 
 

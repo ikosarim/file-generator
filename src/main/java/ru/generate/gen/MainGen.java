@@ -95,7 +95,17 @@ public class MainGen {
     }
 
     private void writeLine(Class absoluteClazz, Class superClazz, Class clazz, String dirPath, String fileName, Object obj, int i) {
+        Field[] absoluteFields = absoluteClazz.getDeclaredFields();
+        Field[] superFields = superClazz.getDeclaredFields();
         Field[] fields = clazz.getDeclaredFields();
+        int numberFileds = absoluteFields.length + superFields.length + fields.length;
+        Field[] finalFields = new Field[numberFileds];
+        for (int j = 0; j < numberFileds; j++) {
+            if (j < 3){
+                finalFields[j] = absoluteFields[j];
+            }
+//            else if ()
+        }
         String text;
         try (FileOutputStream fos = new FileOutputStream(dirPath + fileName)) {
             for (Field field : fields) {

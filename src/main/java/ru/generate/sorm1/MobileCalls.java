@@ -5,7 +5,8 @@ package ru.generate.sorm1;
  */
 public class MobileCalls extends AbstractCall{
 
+//    12MSP
     public String pnASignCount = "4";
-
+//    13MSP
     public String cgpn;
 }

@@ -14,7 +14,7 @@ import java.util.Calendar;
 public class MainGen {
 
     public static void main(String[] args) throws IOException {
-        FixedCalls fixedCalls = new FixedCalls();
+        SmsSorm1 fixedCalls = new SmsSorm1();
         MainGen gen = new MainGen();
         String dirPath = gen.createDir();
         String fileName = gen.createFileName(fixedCalls, "cdr");
@@ -67,12 +67,15 @@ public class MainGen {
     }
 
     private void addInFile(Object obj, String fileName, String dirPath) {
-        Class clazz = obj.getClass().getSuperclass().getSuperclass();
+        Class clazzz = obj.getClass().getSuperclass().getSuperclass();
         if (obj instanceof FixedCalls
                 || obj instanceof MobileCalls) {
+            Class absoluteClazz = obj.getClass().getSuperclass().getSuperclass();
+            Class superClazz = obj.getClass().getSuperclass();
+            Class clazz = obj.getClass();
             ((AbstractCall) obj).code = "65";
             for (int i = 0; i < 4; i++) {
-                writeLine(clazz, dirPath, fileName, obj, i);
+                writeLine(absoluteClazz, superClazz, clazz, dirPath, fileName, obj, i);
                 if (Integer.parseInt(((AbstractCall) obj).code) == 66) {
                     ((AbstractCall) obj).code = "70";
                 } else if (Integer.parseInt(((AbstractCall) obj).code) == 70) {
@@ -85,13 +88,13 @@ public class MainGen {
         } else if (obj instanceof SmsSorm1) {
             ((SmsSorm1) obj).messageNumber = "1";
             for (int i = 0; i < Integer.parseInt(((SmsSorm1) obj).messagesTotal); i++) {
-                writeLine(clazz, dirPath, fileName, obj, i);
+//                writeLine(clazzz, dirPath, fileName, obj, i);
                 Integer.toString(Integer.parseInt(((SmsSorm1) obj).messageNumber) + 1);
             }
         }
     }
 
-    private void writeLine(Class clazz, String dirPath, String fileName, Object obj, int i) {
+    private void writeLine(Class absoluteClazz, Class superClazz, Class clazz, String dirPath, String fileName, Object obj, int i) {
         Field[] fields = clazz.getDeclaredFields();
         String text;
         try (FileOutputStream fos = new FileOutputStream(dirPath + fileName)) {

@@ -1,13 +1,11 @@
 package ru.generate.sorm1;
 
-import org.junit.Test;
-
 import java.lang.reflect.Field;
 
 /**
  * Created by kosarim on 5/3/17.
  */
-public class SmsSorm1 extends AllCommunications {
+public class SmsSorm1 extends AllCommunications implements PrintRow{
 
     //    4S
     public String code = "65";
@@ -34,10 +32,11 @@ public class SmsSorm1 extends AllCommunications {
     //    22SSP
     public String smsMessage;
 
+    @Override
     public String printString() throws IllegalAccessException {
         Field[] fields = this.getClass().getDeclaredFields();
         Field[] superFields = this.getClass().getSuperclass().getDeclaredFields();
-        StringBuilder textBuilder = new StringBuilder();
+        StringBuilder textBuilder = new StringBuilder("");
         addStringFragment(textBuilder, 0, 3, superFields, this);
         addStringFragment(textBuilder, 0, 1, fields, this);
         addStringFragment(textBuilder, 3, 4, superFields, this);
@@ -49,24 +48,19 @@ public class SmsSorm1 extends AllCommunications {
         return textBuilder.toString();
     }
 
-    private StringBuilder addStringFragment(StringBuilder textBuilder, int startCount, int stopCount, Field[] fields, Object obj) throws IllegalAccessException {
+    @Override
+    public StringBuilder addStringFragment(StringBuilder textBuilder, int startCount, int stopCount, Field[] fields, Object obj)
+            throws IllegalAccessException {
         int count = 0;
         for (Field field : fields) {
             ++count;
-            if (count > startCount) {
-                field.setAccessible(true);
+            if (count > startCount && count <= stopCount) {
                 textBuilder.append(field.get((SmsSorm1) obj)).append(";");
-            } else if (count > stopCount) {
+            } else if (count > stopCount){
+
                 break;
             }
         }
         return textBuilder;
     }
-
-    @Test
-    public void test(){
-        
-    }
-
-
 }

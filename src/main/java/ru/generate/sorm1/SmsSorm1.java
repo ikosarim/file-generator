@@ -34,21 +34,18 @@ public class SmsSorm1 extends AllCommunications {
     //    22SSP
     public String smsMessage;
 
-    @Test
     public String printString() throws IllegalAccessException {
-        SmsSorm1 sms = new SmsSorm1();
-        Field[] fields = sms.getClass().getDeclaredFields();
-        Field[] superFields = sms.getClass().getSuperclass().getDeclaredFields();
+        Field[] fields = this.getClass().getDeclaredFields();
+        Field[] superFields = this.getClass().getSuperclass().getDeclaredFields();
         StringBuilder textBuilder = new StringBuilder();
-        addStringFragment(textBuilder, 0, 3, superFields, sms);
-        addStringFragment(textBuilder, 0, 1, fields, sms);
-        addStringFragment(textBuilder, 3, 4, superFields, sms);
-        addStringFragment(textBuilder, 1, 3, fields, sms);
-        addStringFragment(textBuilder, 4, 6, superFields, sms);
-        addStringFragment(textBuilder, 3, 8, fields, sms);
-        addStringFragment(textBuilder, 6, 100, superFields, sms);
-        addStringFragment(textBuilder, 8, 100, fields, sms);
-        System.out.println(textBuilder.toString());
+        addStringFragment(textBuilder, 0, 3, superFields, this);
+        addStringFragment(textBuilder, 0, 1, fields, this);
+        addStringFragment(textBuilder, 3, 4, superFields, this);
+        addStringFragment(textBuilder, 1, 3, fields, this);
+        addStringFragment(textBuilder, 4, 6, superFields, this);
+        addStringFragment(textBuilder, 3, 8, fields, this);
+        addStringFragment(textBuilder, 6, 100, superFields, this);
+        addStringFragment(textBuilder, 8, 100, fields, this);
         return textBuilder.toString();
     }
 
@@ -64,6 +61,11 @@ public class SmsSorm1 extends AllCommunications {
             }
         }
         return textBuilder;
+    }
+
+    @Test
+    public void test(){
+        
     }
 
 

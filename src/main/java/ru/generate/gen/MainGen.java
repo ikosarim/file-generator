@@ -33,8 +33,8 @@ public class MainGen {
         Calendar calendar = Calendar.getInstance();
         StringBuilder fileName = new StringBuilder();
         String year = Integer.toString(calendar.get(Calendar.YEAR));
-        String month = (calendar.get(Calendar.MONTH) + 1 >= 10) ?
-                Integer.toString(calendar.get(Calendar.MONTH))
+        String month = (calendar.get(Calendar.MONTH) + 1 >= 10)
+                ? Integer.toString(calendar.get(Calendar.MONTH))
                 : "0" + Integer.toString(calendar.get(Calendar.MONTH));
         String day = ((AllCommunications) obj).timeDay;
         String hour = ((AllCommunications) obj).timeHour;

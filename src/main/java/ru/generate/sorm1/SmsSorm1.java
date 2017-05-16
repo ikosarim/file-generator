@@ -1,11 +1,9 @@
 package ru.generate.sorm1;
 
-import java.lang.reflect.Field;
-
 /**
  * Created by kosarim on 5/3/17.
  */
-public class SmsSorm1 extends AllCommunications implements PrintRow{
+public class SmsSorm1 extends AllCommunications implements iCdr{
 
     //    4S
     public String code = "65";
@@ -33,34 +31,20 @@ public class SmsSorm1 extends AllCommunications implements PrintRow{
     public String smsMessage;
 
     @Override
-    public String printString() throws IllegalAccessException {
-        Field[] fields = this.getClass().getDeclaredFields();
-        Field[] superFields = this.getClass().getSuperclass().getDeclaredFields();
-        StringBuilder textBuilder = new StringBuilder("");
-        addStringFragment(textBuilder, 0, 3, superFields, this);
-        addStringFragment(textBuilder, 0, 1, fields, this);
-        addStringFragment(textBuilder, 3, 4, superFields, this);
-        addStringFragment(textBuilder, 1, 3, fields, this);
-        addStringFragment(textBuilder, 4, 6, superFields, this);
-        addStringFragment(textBuilder, 3, 8, fields, this);
-        addStringFragment(textBuilder, 6, 100, superFields, this);
-        addStringFragment(textBuilder, 8, 100, fields, this);
-        return textBuilder.toString();
+    public String createCallMessage(){
+        StringBuilder smsCallMessage = new StringBuilder();
+        for (int i = 0; i < Integer.parseInt(this.messagesTotal); i++) {
+            this.messageNumber = String.valueOf(i + 1);
+            smsCallMessage.append(this.toString());
+        }
+        return smsCallMessage.toString();
     }
 
     @Override
-    public StringBuilder addStringFragment(StringBuilder textBuilder, int startCount, int stopCount, Field[] fields, Object obj)
-            throws IllegalAccessException {
-        int count = 0;
-        for (Field field : fields) {
-            ++count;
-            if (count > startCount && count <= stopCount) {
-                textBuilder.append(field.get((SmsSorm1) obj)).append(";");
-            } else if (count > stopCount){
-
-                break;
-            }
-        }
-        return textBuilder;
+    public String toString() {
+        return timestamp + systemId + liId + code + callId + messageNumber + messagesTotal + objectType +
+                dataSrcObjNum + pNType + objectPNQuantity + objectPN + sendParams + undeliveryCode +
+                timeDay + timeHour + timeMinute + timeSecond + recvPNType + recvObjectPNQuantity +
+                recvObjectPN + smsMessage + "\n";
     }
 }

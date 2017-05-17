@@ -18,7 +18,7 @@ public abstract class AbstractCall extends AllCommunications {
     //    11FSP   14MSP
     public String cdpnType = "";
     //    14FSP   15MSP
-    public String pnBsignCount;
+    public String pnBSignCount;
     //    15FSP   16MSP
     public String cdpn;
     //    16F   17M

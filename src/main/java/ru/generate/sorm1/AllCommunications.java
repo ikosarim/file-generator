@@ -21,19 +21,18 @@ public abstract class AllCommunications {
     public String dataSrcObjNum;
     //    19F   20M     15S
     public String timeDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH) >= 10 ?
-            Integer.toString(Calendar.getInstance().get(Calendar.DAY_OF_MONTH))
-            : "0" + Integer.toString(Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+            Integer.toString(Calendar.getInstance().get(Calendar.DAY_OF_MONTH)) :
+            "0" + Integer.toString(Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
     //    20F   21M     16S
     public String timeHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY) >= 10 ?
-            Integer.toString(Calendar.getInstance().get(Calendar.HOUR_OF_DAY))
-            : "0" + Integer.toString(Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
+            Integer.toString(Calendar.getInstance().get(Calendar.HOUR_OF_DAY)) :
+            "0" + Integer.toString(Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
     //    21F   22M     17S
     public String timeMinute = Calendar.getInstance().get(Calendar.MINUTE) >= 10 ?
-            Integer.toString(Calendar.getInstance().get(Calendar.MINUTE))
-            : "0" + Integer.toString(Calendar.getInstance().get(Calendar.MINUTE));
+            Integer.toString(Calendar.getInstance().get(Calendar.MINUTE)) :
+            "0" + Integer.toString(Calendar.getInstance().get(Calendar.MINUTE));
     //    22F   23M     18S
     public String timeSecond = Calendar.getInstance().get(Calendar.SECOND) >= 10 ?
-            Integer.toString(Calendar.getInstance().get(Calendar.SECOND))
-            : "0" + Integer.toString(Calendar.getInstance().get(Calendar.SECOND));
-
+            Integer.toString(Calendar.getInstance().get(Calendar.SECOND)) :
+            "0" + Integer.toString(Calendar.getInstance().get(Calendar.SECOND));
 }

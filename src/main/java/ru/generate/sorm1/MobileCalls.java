@@ -12,10 +12,13 @@ public class MobileCalls extends AbstractCall implements iCdr{
 
     @Override
     public String toString() {
-        return timestamp + systemId + liId + code + objectType + dataSrcObjNum + criteriaType + callType +
-                suppServicePhase + cgpnType + pnASignCount + cgpn + cdpnType + pnBsignCount + cdpn +
-                trunkNum + tslA + tslB + timeDay + timeHour + timeMinute + timeSecond + priority +
-                operationCode + serviceCode + serviceDescr + serviceAddCode + addCode;
+        return timestamp + ";" + systemId + ";" + liId + ";" + code + ";" + objectType + ";" +
+                dataSrcObjNum + ";" + criteriaType + ";" + callType + ";" + suppServicePhase +
+                ";" + cgpnType + ";" + pnASignCount + ";" + cgpn + ";" + cdpnType + ";" + pnBSignCount +
+                cdpn + ";" + trunkNum + ";" + tslA + ";" + tslB + ";" + timeDay + ";" + timeHour +
+                ";" + timeMinute + ";" + timeSecond + ";" + priority + ";" + operationCode +
+                ";" + serviceCode + ";" + serviceDescr + ";" + serviceAddCode + ";" + addCode +
+                ";" + ";" + ";" + ";" + ";" + ";" + ";" + ";" + "\n";
     }
 
     @Override

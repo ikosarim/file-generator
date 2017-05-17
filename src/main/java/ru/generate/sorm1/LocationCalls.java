@@ -23,10 +23,13 @@ public class LocationCalls extends MobileCalls implements iCdr{
 
     @Override
     public String toString() {
-        return timestamp + systemId + liId + code + objectType + dataSrcObjNum + criteriaType + callType +
-                suppServicePhase + cgpnType + pnASignCount + cgpn + cdpnType + pnBsignCount + cdpn +
-                trunkNum + tslA + tslB + timeDay + timeHour + timeMinute + timeSecond + priority +
-                operationCode + serviceCode + serviceDescr + serviceAddCode + addCode +
-                mcc + mnc + lac + cl + mobileIdType + mobileTypeSignCount + mobileId;
+        return timestamp + ";" + systemId + ";" + liId + ";" + code + ";" + objectType + ";" +
+                dataSrcObjNum + ";" + criteriaType + ";" + callType + ";" + suppServicePhase + ";" +
+                cgpnType + ";" + pnASignCount + ";" + cgpn + ";" + cdpnType + ";" + pnBSignCount + ";" +
+                cdpn + ";" + trunkNum + ";" + tslA + ";" + tslB + ";" + timeDay + ";" + timeHour + ";" +
+                timeMinute + ";" + timeSecond + ";" + priority + ";" + operationCode + ";" +
+                serviceCode + ";" + serviceDescr + ";" + serviceAddCode + ";" + addCode + ";" +
+                mcc + ";" + mnc + ";" + lac + ";" + cl + ";" + mobileIdType + ";" +
+                mobileTypeSignCount + ";" + mobileId + ";" + "\n";
     }
 }

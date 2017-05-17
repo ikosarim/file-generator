@@ -42,9 +42,11 @@ public class SmsSorm1 extends AllCommunications implements iCdr{
 
     @Override
     public String toString() {
-        return timestamp + systemId + liId + code + callId + messageNumber + messagesTotal + objectType +
-                dataSrcObjNum + pNType + objectPNQuantity + objectPN + sendParams + undeliveryCode +
-                timeDay + timeHour + timeMinute + timeSecond + recvPNType + recvObjectPNQuantity +
-                recvObjectPN + smsMessage + "\n";
+        return timestamp + ";" + systemId + ";" + liId + ";" + code + ";" + callId + ";" +
+                messageNumber + ";" + messagesTotal + ";" + objectType + ";" + dataSrcObjNum + ";" +
+                pNType + ";" + objectPNQuantity + ";" + objectPN + ";" + sendParams + ";" +
+                undeliveryCode + ";" + timeDay + ";" + timeHour + ";" + timeMinute + ";" +
+                timeSecond + ";" + recvPNType + ";" + recvObjectPNQuantity + ";" + recvObjectPN + ";" +
+                smsMessage + ";" + "\n";
     }
 }

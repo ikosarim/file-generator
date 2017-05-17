@@ -67,6 +67,6 @@ public class MainGen {
     }
 
     private void addInFile(){
-        
+
     }
 }

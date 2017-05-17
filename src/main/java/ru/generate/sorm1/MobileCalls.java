@@ -17,12 +17,12 @@ public class MobileCalls extends AbstractCall implements iCdr{
                 trunkNum + tslA + tslB + timeDay + timeHour + timeMinute + timeSecond + priority +
                 operationCode + serviceCode + serviceDescr + serviceAddCode + addCode;
     }
-    
+
     @Override
     public String createCallMessage() {
-        StringBuilder mobbileCallMessage = new StringBuilder();
+        StringBuilder mobileCallMessage = new StringBuilder();
         for (int i = 0; i < Integer.parseInt(this.code); i++) {
-            mobbileCallMessage.append(this.toString());
+            mobileCallMessage.append(this.toString());
             if (Integer.parseInt(this.code) == 66){
                 this.code = "70";
             } else if (Integer.parseInt(this.code) == 70){
@@ -31,6 +31,6 @@ public class MobileCalls extends AbstractCall implements iCdr{
                 this.code = String.valueOf(Integer.parseInt(this.code) + 1);
             }
         }
-        return mobbileCallMessage.toString();
+        return mobileCallMessage.toString();
     }
 }

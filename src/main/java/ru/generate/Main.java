@@ -20,8 +20,9 @@ public class Main {
         Properties cdrProperties = new Properties();
         cdrProperties.load(Files.newInputStream(Paths.get("src/resources/cdr.properties")));
         String path = cdrProperties.getProperty("path");
+        int cdrNumber = Integer.parseInt(cdrProperties.getProperty("cdrNumber"));
         List<String> cdrs = new ArrayList<>();
-        for (int i = 0; i < 40; i++) {
+        for (int i = 0; i < cdrNumber; i++) {
             cdrs.add(new FixedCallCdr(cdrProperties).createCdr());
         }
         writeCdrsToFile(path, cdrs);

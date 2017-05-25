@@ -20,7 +20,7 @@ public abstract class BasicCallCdrFields extends BasicCdrFields {
     //    11FSP   14MSP
     private String cdpnType = "";
     //    14FSP   15MSP
-    private String pnBsignCount;
+    private String pnBSignCount;
     //    15FSP   16MSP
     private String cdpn;
     //    16F   17M
@@ -50,7 +50,7 @@ public abstract class BasicCallCdrFields extends BasicCdrFields {
         cdrFields[9] = getSuppServicePhase();
         cdrFields[10] = getCgpnType();
         cdrFields[11] = getCdpnType();
-        cdrFields[14] = getPnBsignCount();
+        cdrFields[14] = getPnBSignCount();
         cdrFields[15] = getCdpn();
         cdrFields[16] = getTrunkNum();
         cdrFields[17] = getTslA();
@@ -64,7 +64,7 @@ public abstract class BasicCallCdrFields extends BasicCdrFields {
         return cdrFields;
     }
 
-    private String getCode() {
+    String getCode() {
         return code;
     }
 
@@ -88,8 +88,8 @@ public abstract class BasicCallCdrFields extends BasicCdrFields {
         return cdpnType;
     }
 
-    private String getPnBsignCount() {
-        return pnBsignCount;
+    private String getPnBSignCount() {
+        return pnBSignCount;
     }
 
     private String getCdpn() {
@@ -130,5 +130,9 @@ public abstract class BasicCallCdrFields extends BasicCdrFields {
 
     private String getAddCode() {
         return addCode;
+    }
+
+    private void setCode(String aCode){
+        aCode = code;
     }
 }

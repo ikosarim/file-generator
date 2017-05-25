@@ -1,8 +1,10 @@
 package ru.generate.cdr.calls;
 
-import java.util.Arrays;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Properties;
-import java.util.stream.Collectors;
+import java.util.Random;
 
 /**
  * Created by kosarim on 5/3/17.
@@ -19,13 +21,43 @@ public class FixedCallCdr extends BasicCallCdrFields {
     }
 
     @Override
-    public String createCdr() {
+    public String createCdr() throws IOException {
+        Properties properties = new Properties();
+        properties.load(Files.newInputStream(Paths.get("src/resources/cdr.properties")));
+        int perc = Integer.parseInt(properties.getProperty("percent"));
+        Random random = new Random();
+        boolean msgCode70 = false;
+        if (random.nextInt(100) > perc){
+            msgCode70 = true;
+        }
+        String[] cdrFields;
+        for (int i = 0; i < 4; i++) {
+            cdrFields = createCdrLine();
+            if (i == 1){
+                cdrFields[3] = "66";
+            } else if (i == 2 && msgCode70){
+                cdrFields[3] = "70";
+            } else if (i == 3 && msgCode70){
+                cdrFields[3] = "67";
+            } else if (i == 3 && !msgCode70){
+                break;
+            }
+
+        }
+
+        return null;
+    }
+
+    @Override
+    public String[] createCdrLine() throws IOException {
         String[] cdrFields = getBasicCallCdrFields();
         cdrFields[11] = getPnASignCount();
         cdrFields[12] = getCgpn();
-        return Arrays.stream(cdrFields)
-                .map(field -> field == null ? field = "" : field)
-                .collect(Collectors.joining(";"));
+        cdrFields[cdrFields.length + 1] = "\n";
+        return cdrFields;
+//        return Arrays.stream(cdrFields)
+//                .map(field -> field == null ? field = "" : field)
+//                .collect(Collectors.joining(";"));
     }
 
     private String getPnASignCount() {

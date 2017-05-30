@@ -11,6 +11,4 @@ public interface ICdr {
 
     String createCdr() throws IOException;
 
-    String[] createCdrLine() throws IOException;
-
 }

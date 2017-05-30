@@ -59,6 +59,7 @@ public class SmsCdr extends BasicCdrFields {
 
     @Override
     public String createCdr() {
+
         return Arrays.stream(getSmsCdrFields())
                 .map(field -> field == null ? field = "" : field)
                 .collect(Collectors.joining(";"));

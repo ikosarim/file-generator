@@ -1,9 +1,6 @@
-package ru.generate.cdr.sms;
+package java.ru.generate.cdr.sms;
 
-import ru.generate.cdr.BasicCdrFields;
-
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.ru.generate.cdr.BasicCdrFields;
 import java.util.List;
 import java.util.Properties;
 import java.util.stream.Collectors;
@@ -42,10 +39,10 @@ public class SmsCdr extends BasicCdrFields {
         this.properties = properties;
     }
 
-    private List<String> getSmsCdrFields() {
+    private List<String> getSmsCdrFields(String messageNumber) {
         List<String> cdrFields = getBasicCdrFields();
         cdrFields.set(4, getCode());
-        cdrFields.set(6, getMessageNumber());
+        cdrFields.set(6, messageNumber);
         cdrFields.set(7, getMessagesTotal());
         cdrFields.set(10, getpNType());
         cdrFields.set(11, getObjectPNQuantity());
@@ -56,27 +53,23 @@ public class SmsCdr extends BasicCdrFields {
         cdrFields.set(20, getRecvObjectPNQuantity());
         cdrFields.set(21, getRecvObjectPN());
         cdrFields.set(22, getSmsMessage());
-        return getAllCdrFields(cdrFields);
+        return cdrFields;
     }
 
     @Override
-    protected List<String> getAllCdrFields(List<String> cdrFields){
-        List<String> finalCdrFields = new ArrayList<>();
-        for (int i = 0; i < Integer.parseInt(cdrFields.get(7)); i++) {
-            for (int j = 0; j < cdrFields.size() + 1; j++) {
-                finalCdrFields.set(i*(cdrFields.size() + 1) + j, cdrFields.get(j));
-            }
-            finalCdrFields.set(i*(cdrFields.size() + 1) + 6, String.valueOf(i + 1));
-            finalCdrFields.set((i + 1)*(cdrFields.size() + 1), "\n");
-        }
-        return finalCdrFields;
-    }
-
-    @Override
-    public String createCdr() {
-        return getSmsCdrFields().stream()
+    public String createCdr(String messageNumber) {
+        return getSmsCdrFields(messageNumber).stream()
                 .map(field -> field == null ? field = "" : field)
                 .collect(Collectors.joining(";"));
+    }
+
+    @Override
+    public String createMessageCdr() {
+        StringBuilder messageBuilder = new StringBuilder();
+//        for (int i = 0; i < Integer.parseInt(); i++) {
+
+//        }
+        return null;
     }
 
     private String getCode() {

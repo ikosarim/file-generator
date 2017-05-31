@@ -1,6 +1,6 @@
-package ru.generate.cdr.calls;
+package java.ru.generate.cdr.calls;
 
-import ru.generate.cdr.BasicCdrFields;
+import java.ru.generate.cdr.BasicCdrFields;
 
 /**
  * Created by kosarim on 5/3/17.

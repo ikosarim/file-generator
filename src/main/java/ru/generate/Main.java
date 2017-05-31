@@ -1,6 +1,4 @@
-package ru.generate;
-
-import ru.generate.cdr.calls.FixedCallCdr;
+package java.ru.generate;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -22,7 +20,7 @@ public class Main {
         String path = cdrProperties.getProperty("path");
         List<String> cdrs = new ArrayList<>();
         for (int i = 0; i < 40; i++) {
-            cdrs.add(new FixedCallCdr(cdrProperties).createCdr());
+//            cdrs.add(new FixedCallCdr(cdrProperties).createCdr());
         }
         writeCdrsToFile(path, cdrs);
     }

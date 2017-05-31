@@ -1,8 +1,6 @@
-package ru.generate.cdr.location;
+package java.ru.generate.cdr.location;
 
-import ru.generate.cdr.calls.MobileCallCdr;
-
-import java.util.Arrays;
+import java.ru.generate.cdr.calls.MobileCallCdr;
 import java.util.List;
 import java.util.Properties;
 import java.util.stream.Collectors;
@@ -32,8 +30,7 @@ public class LocationCdr extends MobileCallCdr {
     }
 
     @Override
-    public String createCdr() {
-
+    public String createCdr(String code) {
      return getLocationFields().stream()
              .map(field -> field == null ? field = "" : field)
              .collect(Collectors.joining(";"));
@@ -48,7 +45,7 @@ public class LocationCdr extends MobileCallCdr {
         cdrFields.set(34, getMobileIdType());
         cdrFields.set(35, getMobileTypeSignCount());
         cdrFields.set(36, getMobileId());
-        return getAllCdrFields(cdrFields);
+        return cdrFields;
     }
 
     private String getMcc() {

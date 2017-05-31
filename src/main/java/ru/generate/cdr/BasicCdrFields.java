@@ -1,4 +1,4 @@
-package ru.generate.cdr;
+package java.ru.generate.cdr;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -53,28 +53,6 @@ public abstract class BasicCdrFields implements ICdr {
         cdrFields.set(21, getTimeMinute());
         cdrFields.set(22, getTimeSecond());
         return cdrFields;
-    }
-
-    protected List<String> getAllCdrFields(List<String> cdrFields){
-        List<String> finalCdrFields = new ArrayList<>();
-        for (int i = 0; i < (cdrFields.size() + 1); i++) {
-            if (i != 3) {
-                finalCdrFields.set(i, cdrFields.get(i));
-                finalCdrFields.set(cdrFields.size() + 1 + i, cdrFields.get(i));
-                finalCdrFields.set(2 * (cdrFields.size() + 1) + i, cdrFields.get(i));
-                finalCdrFields.set(3 * (cdrFields.size() + 1) + i, cdrFields.get(i));
-            } else {
-                finalCdrFields.set(i, "65");
-                finalCdrFields.set(cdrFields.size() + 1 + i, "66");
-                finalCdrFields.set(2 * (cdrFields.size() + 1) + i, "68");
-                finalCdrFields.set(3 * (cdrFields.size() + 1) + i, "67");
-            }
-        }
-        finalCdrFields.set(cdrFields.size() + 1, "\n");
-        finalCdrFields.set(2*(cdrFields.size() + 1), "\n");
-        finalCdrFields.set(3*(cdrFields.size() + 1), "\n");
-        finalCdrFields.set(4*(cdrFields.size() + 1), "\n");
-        return finalCdrFields;
     }
 
     public Properties getProperties() {

@@ -2,7 +2,9 @@ package ru.generate.cdr.sms;
 
 import ru.generate.cdr.BasicCdrFields;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 import java.util.stream.Collectors;
 
@@ -40,26 +42,39 @@ public class SmsCdr extends BasicCdrFields {
         this.properties = properties;
     }
 
-    private String[] getSmsCdrFields() {
-        String[] cdrFields = getBasicCdrFields();
-        cdrFields[4] = getCode();
-        cdrFields[6] = getMessageNumber();
-        cdrFields[7] = getMessagesTotal();
-        cdrFields[10] = getpNType();
-        cdrFields[11] = getObjectPNQuantity();
-        cdrFields[12] = getObjectPN();
-        cdrFields[13] = getSendParams();
-        cdrFields[14] = getUndeliveryCode();
-        cdrFields[19] = getRecvPNType();
-        cdrFields[20] = getRecvObjectPNQuantity();
-        cdrFields[21] = getRecvObjectPN();
-        cdrFields[22] = getSmsMessage();
-        return cdrFields;
+    private List<String> getSmsCdrFields() {
+        List<String> cdrFields = getBasicCdrFields();
+        cdrFields.set(4, getCode());
+        cdrFields.set(6, getMessageNumber());
+        cdrFields.set(7, getMessagesTotal());
+        cdrFields.set(10, getpNType());
+        cdrFields.set(11, getObjectPNQuantity());
+        cdrFields.set(12, getObjectPN());
+        cdrFields.set(13, getSendParams());
+        cdrFields.set(14, getUndeliveryCode());
+        cdrFields.set(19, getRecvPNType());
+        cdrFields.set(20, getRecvObjectPNQuantity());
+        cdrFields.set(21, getRecvObjectPN());
+        cdrFields.set(22, getSmsMessage());
+        return getAllCdrFields(cdrFields);
+    }
+
+    @Override
+    protected List<String> getAllCdrFields(List<String> cdrFields){
+        List<String> finalCdrFields = new ArrayList<>();
+        for (int i = 0; i < Integer.parseInt(cdrFields.get(7)); i++) {
+            for (int j = 0; j < cdrFields.size() + 1; j++) {
+                finalCdrFields.set(i*(cdrFields.size() + 1) + j, cdrFields.get(j));
+            }
+            finalCdrFields.set(i*(cdrFields.size() + 1) + 6, String.valueOf(i + 1));
+            finalCdrFields.set((i + 1)*(cdrFields.size() + 1), "\n");
+        }
+        return finalCdrFields;
     }
 
     @Override
     public String createCdr() {
-        return Arrays.stream(getSmsCdrFields())
+        return getSmsCdrFields().stream()
                 .map(field -> field == null ? field = "" : field)
                 .collect(Collectors.joining(";"));
     }

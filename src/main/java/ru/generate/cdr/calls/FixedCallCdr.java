@@ -1,6 +1,7 @@
 package ru.generate.cdr.calls;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 import java.util.stream.Collectors;
 
@@ -20,12 +21,16 @@ public class FixedCallCdr extends BasicCallCdrFields {
 
     @Override
     public String createCdr() {
-        String[] cdrFields = getBasicCallCdrFields();
-        cdrFields[11] = getPnASignCount();
-        cdrFields[12] = getCgpn();
-        return Arrays.stream(cdrFields)
+        return getAllCdrFields(getFixedFields()).stream()
                 .map(field -> field == null ? field = "" : field)
                 .collect(Collectors.joining(";"));
+    }
+
+    private List<String> getFixedFields() {
+        List<String> cdrFields = getBasicCdrFields();
+        cdrFields.set(11, getPnASignCount());
+        cdrFields.set(12, getCgpn());
+        return getAllCdrFields(cdrFields);
     }
 
     private String getPnASignCount() {

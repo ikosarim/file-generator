@@ -1,6 +1,8 @@
 package ru.generate.cdr;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Properties;
 
 /**
@@ -38,19 +40,41 @@ public abstract class BasicCdrFields implements ICdr {
             Integer.toString(Calendar.getInstance().get(Calendar.SECOND))
             : "0" + Integer.toString(Calendar.getInstance().get(Calendar.SECOND));
 
-    protected String[] getBasicCdrFields() {
-        String[] cdrFields = new String[CDR_LENGTH];
-        cdrFields[0] = getTimestamp();
-        cdrFields[1] = getSystemId();
-        cdrFields[2] = getLiId();
-        cdrFields[4] = getCallId();
-        cdrFields[5] = getObjectType();
-        cdrFields[6] = getDataSrcObjNum();
-        cdrFields[19] = getTimeDay();
-        cdrFields[20] = getTimeHour();
-        cdrFields[21] = getTimeMinute();
-        cdrFields[22] = getTimeSecond();
+    protected List<String> getBasicCdrFields() {
+        List<String> cdrFields = new ArrayList<>();
+        cdrFields.set(0, getTimestamp());
+        cdrFields.set(1, getSystemId());
+        cdrFields.set(2, getLiId());
+        cdrFields.set(4, getCallId());
+        cdrFields.set(5, getObjectType());
+        cdrFields.set(6, getDataSrcObjNum());
+        cdrFields.set(19, getTimeDay());
+        cdrFields.set(20, getTimeHour());
+        cdrFields.set(21, getTimeMinute());
+        cdrFields.set(22, getTimeSecond());
         return cdrFields;
+    }
+
+    protected List<String> getAllCdrFields(List<String> cdrFields){
+        List<String> finalCdrFields = new ArrayList<>();
+        for (int i = 0; i < (cdrFields.size() + 1); i++) {
+            if (i != 3) {
+                finalCdrFields.set(i, cdrFields.get(i));
+                finalCdrFields.set(cdrFields.size() + 1 + i, cdrFields.get(i));
+                finalCdrFields.set(2 * (cdrFields.size() + 1) + i, cdrFields.get(i));
+                finalCdrFields.set(3 * (cdrFields.size() + 1) + i, cdrFields.get(i));
+            } else {
+                finalCdrFields.set(i, "65");
+                finalCdrFields.set(cdrFields.size() + 1 + i, "66");
+                finalCdrFields.set(2 * (cdrFields.size() + 1) + i, "68");
+                finalCdrFields.set(3 * (cdrFields.size() + 1) + i, "67");
+            }
+        }
+        finalCdrFields.set(cdrFields.size() + 1, "\n");
+        finalCdrFields.set(2*(cdrFields.size() + 1), "\n");
+        finalCdrFields.set(3*(cdrFields.size() + 1), "\n");
+        finalCdrFields.set(4*(cdrFields.size() + 1), "\n");
+        return finalCdrFields;
     }
 
     public Properties getProperties() {

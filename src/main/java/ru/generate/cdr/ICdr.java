@@ -5,7 +5,7 @@ package ru.generate.cdr;
  */
 public interface ICdr {
 
-    int CDR_LENGTH = 37;
+    int CDR_LENGTH = 37 + 1;
 
     String createCdr();
 

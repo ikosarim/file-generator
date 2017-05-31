@@ -42,28 +42,6 @@ public abstract class BasicCallCdrFields extends BasicCdrFields {
     //    28F   29M
     private String addCode = "-1";
 
-    String[] getBasicCallCdrFields() {
-        String[] cdrFields = getBasicCdrFields();
-        cdrFields[3] = getCode();
-        cdrFields[7] = getCriteriaType();
-        cdrFields[8] = getCallType();
-        cdrFields[9] = getSuppServicePhase();
-        cdrFields[10] = getCgpnType();
-        cdrFields[11] = getCdpnType();
-        cdrFields[14] = getPnBsignCount();
-        cdrFields[15] = getCdpn();
-        cdrFields[16] = getTrunkNum();
-        cdrFields[17] = getTslA();
-        cdrFields[18] = getTslB();
-        cdrFields[23] = getPriority();
-        cdrFields[24] = getOperationCode();
-        cdrFields[25] = getServiceCode();
-        cdrFields[26] = getServiceDescr();
-        cdrFields[27] = getServiceAddCode();
-        cdrFields[28] = getAddCode();
-        return cdrFields;
-    }
-
     private String getCode() {
         return code;
     }

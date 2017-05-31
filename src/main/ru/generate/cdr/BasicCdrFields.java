@@ -42,16 +42,29 @@ public abstract class BasicCdrFields implements ICdr {
 
     protected List<String> getBasicCdrFields() {
         List<String> cdrFields = new ArrayList<>();
-        cdrFields.set(0, getTimestamp());
-        cdrFields.set(1, getSystemId());
-        cdrFields.set(2, getLiId());
-        cdrFields.set(4, getCallId());
-        cdrFields.set(5, getObjectType());
-        cdrFields.set(6, getDataSrcObjNum());
-        cdrFields.set(19, getTimeDay());
-        cdrFields.set(20, getTimeHour());
-        cdrFields.set(21, getTimeMinute());
-        cdrFields.set(22, getTimeSecond());
+        cdrFields.add(0, getTimestamp());
+        cdrFields.add(1, getSystemId());
+        cdrFields.add(2, getLiId());
+        cdrFields.add(3, "");
+        cdrFields.add(4, getCallId());
+        cdrFields.add(5, getObjectType());
+        cdrFields.add(6, getDataSrcObjNum());
+        cdrFields.add(7, "");
+        cdrFields.add(8, "");
+        cdrFields.add(9, "");
+        cdrFields.add(10, "");
+        cdrFields.add(11, "");
+        cdrFields.add(12, "");
+        cdrFields.add(13, "");
+        cdrFields.add(14, "");
+        cdrFields.add(15, "");
+        cdrFields.add(16, "");
+        cdrFields.add(17, "");
+        cdrFields.add(18, "");
+        cdrFields.add(19, getTimeDay());
+        cdrFields.add(20, getTimeHour());
+        cdrFields.add(21, getTimeMinute());
+        cdrFields.add(22, getTimeSecond());
         return cdrFields;
     }
 

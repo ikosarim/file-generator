@@ -1,6 +1,6 @@
-package java.ru.generate.cdr.sms;
+package ru.generate.cdr.sms;
 
-import java.ru.generate.cdr.BasicCdrFields;
+import ru.generate.cdr.BasicCdrFields;
 import java.util.List;
 import java.util.Properties;
 import java.util.stream.Collectors;
@@ -66,10 +66,10 @@ public class SmsCdr extends BasicCdrFields {
     @Override
     public String createMessageCdr() {
         StringBuilder messageBuilder = new StringBuilder();
-//        for (int i = 0; i < Integer.parseInt(); i++) {
-
-//        }
-        return null;
+        for (int i = 0; i < Integer.parseInt(getMessagesTotal()); i++) {
+            messageBuilder.append(createCdr(String.valueOf(i + 1))).append("\n");
+        }
+        return messageBuilder.toString();
     }
 
     private String getCode() {

@@ -1,4 +1,4 @@
-package java.ru.generate.cdr.calls;
+package ru.generate.cdr.calls;
 
 import java.util.List;
 import java.util.Properties;

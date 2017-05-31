@@ -1,4 +1,4 @@
-package java.ru.generate.cdr;
+package ru.generate.cdr;
 
 import java.util.ArrayList;
 import java.util.Calendar;

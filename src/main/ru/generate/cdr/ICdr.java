@@ -1,4 +1,4 @@
-package java.ru.generate.cdr;
+package ru.generate.cdr;
 
 /**
  * Created by kosarim on 5/16/17.

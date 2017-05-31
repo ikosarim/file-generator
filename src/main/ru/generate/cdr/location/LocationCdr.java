@@ -1,6 +1,6 @@
-package java.ru.generate.cdr.location;
+package ru.generate.cdr.location;
 
-import java.ru.generate.cdr.calls.MobileCallCdr;
+import ru.generate.cdr.calls.MobileCallCdr;
 import java.util.List;
 import java.util.Properties;
 import java.util.stream.Collectors;
@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
  */
 public class LocationCdr extends MobileCallCdr {
 
-//    30M
+    //    30M
     private String mcc;
     //    31M
     private String mnc;
@@ -31,13 +31,13 @@ public class LocationCdr extends MobileCallCdr {
 
     @Override
     public String createCdr(String code) {
-     return getLocationFields().stream()
-             .map(field -> field == null ? field = "" : field)
-             .collect(Collectors.joining(";"));
+        return getLocationFields(code).stream()
+                .map(field -> field == null ? field = "" : field)
+                .collect(Collectors.joining(";"));
     }
 
-    private List<String> getLocationFields(){
-        List<String> cdrFields = getMobileFields();
+    private List<String> getLocationFields(String code) {
+        List<String> cdrFields = getMobileFields(code);
         cdrFields.set(30, getMcc());
         cdrFields.set(31, getMnc());
         cdrFields.set(32, getLac());
@@ -46,6 +46,17 @@ public class LocationCdr extends MobileCallCdr {
         cdrFields.set(35, getMobileTypeSignCount());
         cdrFields.set(36, getMobileId());
         return cdrFields;
+    }
+
+    @Override
+    public String createMessageCdr() {
+        return createCdr("65") +
+                "\n" +
+                createCdr("66") +
+                "\n" +
+                createCdr("68") +
+                "\n" +
+                createCdr("67");
     }
 
     private String getMcc() {

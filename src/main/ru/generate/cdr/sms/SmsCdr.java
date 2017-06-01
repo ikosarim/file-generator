@@ -41,18 +41,18 @@ public class SmsCdr extends BasicCdrFields {
 
     private List<String> getSmsCdrFields(String messageNumber) {
         List<String> cdrFields = getBasicCdrFields();
-        cdrFields.add(4, getCode());
-        cdrFields.add(6, messageNumber);
-        cdrFields.add(7, getMessagesTotal());
-        cdrFields.add(10, getpNType());
-        cdrFields.add(11, getObjectPNQuantity());
-        cdrFields.add(12, getObjectPN());
-        cdrFields.add(13, getSendParams());
-        cdrFields.add(14, getUndeliveryCode());
-        cdrFields.add(19, getRecvPNType());
-        cdrFields.add(20, getRecvObjectPNQuantity());
-        cdrFields.add(21, getRecvObjectPN());
-        cdrFields.add(22, getSmsMessage());
+        cdrFields.set(4, getCode());
+        cdrFields.set(6, messageNumber);
+        cdrFields.set(7, getMessagesTotal());
+        cdrFields.set(10, getpNType());
+        cdrFields.set(11, getObjectPNQuantity());
+        cdrFields.set(12, getObjectPN());
+        cdrFields.set(13, getSendParams());
+        cdrFields.set(14, getUndeliveryCode());
+        cdrFields.set(19, getRecvPNType());
+        cdrFields.set(20, getRecvObjectPNQuantity());
+        cdrFields.set(21, getRecvObjectPN());
+        cdrFields.set(22, getSmsMessage());
         return cdrFields;
     }
 

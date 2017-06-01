@@ -38,13 +38,13 @@ public class LocationCdr extends MobileCallCdr {
 
     private List<String> getLocationFields(String code) {
         List<String> cdrFields = getMobileFields(code);
-        cdrFields.add(30, getMcc());
-        cdrFields.add(31, getMnc());
-        cdrFields.add(32, getLac());
-        cdrFields.add(33, getCl());
-        cdrFields.add(34, getMobileIdType());
-        cdrFields.add(35, getMobileTypeSignCount());
-        cdrFields.add(36, getMobileId());
+        cdrFields.set(29, getMcc());
+        cdrFields.set(30, getMnc());
+        cdrFields.set(31, getLac());
+        cdrFields.set(32, getCl());
+        cdrFields.set(33, getMobileIdType());
+        cdrFields.set(34, getMobileTypeSignCount());
+        cdrFields.set(35, getMobileId());
         return cdrFields;
     }
 

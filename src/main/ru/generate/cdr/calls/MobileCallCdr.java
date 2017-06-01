@@ -37,7 +37,14 @@ public class MobileCallCdr extends BasicCallCdrFields {
     }
 
     protected List<String> getMobileFields(String code) {
-        List<String> cdrFields = getBasicCdrFields();
+        List<String> cdrFields = getCallCdrFields();
+        cdrFields.add(29, "");
+        cdrFields.add(30, "");
+        cdrFields.add(31, "");
+        cdrFields.add(32, "");
+        cdrFields.add(33, "");
+        cdrFields.add(34, "");
+        cdrFields.add(35, "");
         cdrFields.set(3, code);
         cdrFields.set(12, getPnASignCount());
         cdrFields.set(13, getCgpn());

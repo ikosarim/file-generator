@@ -37,7 +37,7 @@ public class FixedCallCdr extends BasicCallCdrFields {
     }
 
     private List<String> getFixedFields(String code) {
-        List<String> cdrFields = getBasicCdrFields();
+        List<String> cdrFields = getCallCdrFields();
         cdrFields.set(3, code);
         cdrFields.set(11, getPnASignCount());
         cdrFields.set(12, getCgpn());

@@ -2,6 +2,8 @@ package ru.generate.cdr.calls;
 
 import ru.generate.cdr.BasicCdrFields;
 
+import java.util.List;
+
 /**
  * Created by kosarim on 5/3/17.
  */
@@ -41,6 +43,19 @@ public abstract class BasicCallCdrFields extends BasicCdrFields {
     private String serviceAddCode = "4294967295";
     //    28F   29M
     private String addCode = "-1";
+
+    private String callContentType = "1";
+
+    protected List<String> getCallCdrFields(){
+        List<String> cdrFields = getBasicCdrFields();
+        cdrFields.add(23, getPriority());
+        cdrFields.add(24, getOperationCode());
+        cdrFields.add(25, getServiceCode());
+        cdrFields.add(26, getServiceDescr());
+        cdrFields.add(27, getServiceAddCode());
+        cdrFields.add(28, getAddCode());
+        return cdrFields;
+    }
 
     private String getCode() {
         return code;
@@ -108,5 +123,9 @@ public abstract class BasicCallCdrFields extends BasicCdrFields {
 
     private String getAddCode() {
         return addCode;
+    }
+
+    private String getCallContentType(){
+        return callContentType;
     }
 }

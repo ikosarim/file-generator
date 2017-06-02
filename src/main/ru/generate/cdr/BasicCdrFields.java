@@ -1,6 +1,8 @@
 package ru.generate.cdr;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Properties;
 
 /**
@@ -38,18 +40,31 @@ public abstract class BasicCdrFields implements ICdr {
             Integer.toString(Calendar.getInstance().get(Calendar.SECOND))
             : "0" + Integer.toString(Calendar.getInstance().get(Calendar.SECOND));
 
-    protected String[] getBasicCdrFields() {
-        String[] cdrFields = new String[CDR_LENGTH];
-        cdrFields[0] = getTimestamp();
-        cdrFields[1] = getSystemId();
-        cdrFields[2] = getLiId();
-        cdrFields[4] = getCallId();
-        cdrFields[5] = getObjectType();
-        cdrFields[6] = getDataSrcObjNum();
-        cdrFields[19] = getTimeDay();
-        cdrFields[20] = getTimeHour();
-        cdrFields[21] = getTimeMinute();
-        cdrFields[22] = getTimeSecond();
+    protected List<String> getBasicCdrFields() {
+        List<String> cdrFields = new ArrayList<>();
+        cdrFields.add(0, getTimestamp());
+        cdrFields.add(1, getSystemId());
+        cdrFields.add(2, getLiId());
+        cdrFields.add(3, "");
+        cdrFields.add(4, getCallId());
+        cdrFields.add(5, getObjectType());
+        cdrFields.add(6, getDataSrcObjNum());
+        cdrFields.add(7, "");
+        cdrFields.add(8, "");
+        cdrFields.add(9, "");
+        cdrFields.add(10, "");
+        cdrFields.add(11, "");
+        cdrFields.add(12, "");
+        cdrFields.add(13, "");
+        cdrFields.add(14, "");
+        cdrFields.add(15, "");
+        cdrFields.add(16, "");
+        cdrFields.add(17, "");
+        cdrFields.add(18, "");
+        cdrFields.add(19, getTimeDay());
+        cdrFields.add(20, getTimeHour());
+        cdrFields.add(21, getTimeMinute());
+        cdrFields.add(22, getTimeSecond());
         return cdrFields;
     }
 

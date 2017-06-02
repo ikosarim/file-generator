@@ -1,8 +1,7 @@
 package ru.generate.cdr.sms;
 
 import ru.generate.cdr.BasicCdrFields;
-
-import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 import java.util.stream.Collectors;
 
@@ -16,7 +15,7 @@ public class SmsCdr extends BasicCdrFields {
     //    6SSP
     private String messageNumber;
     //    7SSP
-    private String messagesTotal;
+    private String messagesTotal = "3";
     //    10S
     private String pNType = "1";
     //    11SSP
@@ -40,29 +39,40 @@ public class SmsCdr extends BasicCdrFields {
         this.properties = properties;
     }
 
-    private String[] getSmsCdrFields() {
-        String[] cdrFields = getBasicCdrFields();
-        cdrFields[4] = getCode();
-        cdrFields[6] = getMessageNumber();
-        cdrFields[7] = getMessagesTotal();
-        cdrFields[10] = getpNType();
-        cdrFields[11] = getObjectPNQuantity();
-        cdrFields[12] = getObjectPN();
-        cdrFields[13] = getSendParams();
-        cdrFields[14] = getUndeliveryCode();
-        cdrFields[19] = getRecvPNType();
-        cdrFields[20] = getRecvObjectPNQuantity();
-        cdrFields[21] = getRecvObjectPN();
-        cdrFields[22] = getSmsMessage();
+    private List<String> getSmsCdrFields(String messageNumber) {
+        List<String> cdrFields = getBasicCdrFields();
+        cdrFields.set(4, getCode());
+        cdrFields.set(6, messageNumber);
+        cdrFields.set(7, getMessagesTotal());
+        cdrFields.set(10, getpNType());
+        cdrFields.set(11, getObjectPNQuantity());
+        cdrFields.set(12, getObjectPN());
+        cdrFields.set(13, getSendParams());
+        cdrFields.set(14, getUndeliveryCode());
+        cdrFields.set(19, getRecvPNType());
+        cdrFields.set(20, getRecvObjectPNQuantity());
+        cdrFields.set(21, getRecvObjectPN());
+        cdrFields.set(22, getSmsMessage());
         return cdrFields;
     }
 
     @Override
-    public String createCdr() {
-
-        return Arrays.stream(getSmsCdrFields())
+    public String createCdr(String messageNumber) {
+        return getSmsCdrFields(messageNumber).stream()
                 .map(field -> field == null ? field = "" : field)
                 .collect(Collectors.joining(";"));
+    }
+
+    @Override
+    public String createMessageCdr() {
+        StringBuilder messageBuilder = new StringBuilder();
+        for (int i = 0; i < Integer.parseInt(getMessagesTotal()); i++) {
+            messageBuilder.append(createCdr(String.valueOf(i + 1)));
+            if (i != Integer.parseInt(getMessagesTotal()) - 1){
+                messageBuilder.append("\n");
+            }
+        }
+        return messageBuilder.toString();
     }
 
     private String getCode() {

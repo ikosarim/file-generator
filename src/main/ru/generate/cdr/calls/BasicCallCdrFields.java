@@ -2,6 +2,8 @@ package ru.generate.cdr.calls;
 
 import ru.generate.cdr.BasicCdrFields;
 
+import java.util.List;
+
 /**
  * Created by kosarim on 5/3/17.
  */
@@ -20,7 +22,7 @@ public abstract class BasicCallCdrFields extends BasicCdrFields {
     //    11FSP   14MSP
     private String cdpnType = "";
     //    14FSP   15MSP
-    private String pnBSignCount;
+    private String pnBsignCount;
     //    15FSP   16MSP
     private String cdpn;
     //    16F   17M
@@ -42,29 +44,20 @@ public abstract class BasicCallCdrFields extends BasicCdrFields {
     //    28F   29M
     private String addCode = "-1";
 
-    String[] getBasicCallCdrFields() {
-        String[] cdrFields = getBasicCdrFields();
-        cdrFields[3] = getCode();
-        cdrFields[7] = getCriteriaType();
-        cdrFields[8] = getCallType();
-        cdrFields[9] = getSuppServicePhase();
-        cdrFields[10] = getCgpnType();
-        cdrFields[11] = getCdpnType();
-        cdrFields[14] = getPnBSignCount();
-        cdrFields[15] = getCdpn();
-        cdrFields[16] = getTrunkNum();
-        cdrFields[17] = getTslA();
-        cdrFields[18] = getTslB();
-        cdrFields[23] = getPriority();
-        cdrFields[24] = getOperationCode();
-        cdrFields[25] = getServiceCode();
-        cdrFields[26] = getServiceDescr();
-        cdrFields[27] = getServiceAddCode();
-        cdrFields[28] = getAddCode();
+    private String callContentType = "1";
+
+    protected List<String> getCallCdrFields(){
+        List<String> cdrFields = getBasicCdrFields();
+        cdrFields.add(23, getPriority());
+        cdrFields.add(24, getOperationCode());
+        cdrFields.add(25, getServiceCode());
+        cdrFields.add(26, getServiceDescr());
+        cdrFields.add(27, getServiceAddCode());
+        cdrFields.add(28, getAddCode());
         return cdrFields;
     }
 
-    String getCode() {
+    private String getCode() {
         return code;
     }
 
@@ -88,8 +81,8 @@ public abstract class BasicCallCdrFields extends BasicCdrFields {
         return cdpnType;
     }
 
-    private String getPnBSignCount() {
-        return pnBSignCount;
+    private String getPnBsignCount() {
+        return pnBsignCount;
     }
 
     private String getCdpn() {
@@ -132,7 +125,7 @@ public abstract class BasicCallCdrFields extends BasicCdrFields {
         return addCode;
     }
 
-    private void setCode(String aCode){
-        aCode = code;
+    private String getCallContentType(){
+        return callContentType;
     }
 }

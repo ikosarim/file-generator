@@ -65,6 +65,7 @@ public abstract class BasicCdrFields implements ICdr {
         cdrFields.add(20, getTimeHour());
         cdrFields.add(21, getTimeMinute());
         cdrFields.add(22, getTimeSecond());
+        System.out.println(cdrFields);
         return cdrFields;
     }
 

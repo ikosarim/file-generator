@@ -54,6 +54,7 @@ public abstract class BasicCallCdrFields extends BasicCdrFields {
         cdrFields.add(26, getServiceDescr());
         cdrFields.add(27, getServiceAddCode());
         cdrFields.add(28, getAddCode());
+        System.out.println(cdrFields);
         return cdrFields;
     }
 

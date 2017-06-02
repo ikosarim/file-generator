@@ -15,7 +15,7 @@ public class SmsCdr extends BasicCdrFields {
     //    6SSP
     private String messageNumber;
     //    7SSP
-    private String messagesTotal;
+    private String messagesTotal = "3";
     //    10S
     private String pNType = "1";
     //    11SSP
@@ -67,7 +67,10 @@ public class SmsCdr extends BasicCdrFields {
     public String createMessageCdr() {
         StringBuilder messageBuilder = new StringBuilder();
         for (int i = 0; i < Integer.parseInt(getMessagesTotal()); i++) {
-            messageBuilder.append(createCdr(String.valueOf(i + 1))).append("\n");
+            messageBuilder.append(createCdr(String.valueOf(i + 1)));
+            if (i != Integer.parseInt(getMessagesTotal()) - 1){
+                messageBuilder.append("\n");
+            }
         }
         return messageBuilder.toString();
     }

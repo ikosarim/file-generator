@@ -10,33 +10,35 @@ import java.util.stream.Collectors;
 public class MobileCallCdr extends BasicCallCdrFields {
 
     //    12MSP
-    private String pnASignCount = "4";
+    private String mobilePnASignCount = "4";
     //    13MSP
-    private String cgpn;
+    private String mobileCgpn;
 
     public MobileCallCdr(Properties properties) {
         this.properties = properties;
     }
 
     @Override
-    public String createCdr(String code) {
-        return getMobileFields(code).stream()
+    public String createCdr(List<String> cdrFields, String code) {
+        cdrFields.set(3, code);
+        return cdrFields.stream()
                 .map(field -> field == null ? field = "" : field)
                 .collect(Collectors.joining(";"));
     }
 
     @Override
     public String createMessageCdr() {
-        return createCdr("65") +
+        List<String> cdrFields= getMobileFields();
+        return createCdr(cdrFields, "65") +
                 "\n" +
-                createCdr("66") +
+                createCdr(cdrFields, "66") +
                 "\n" +
-                createCdr("68") +
+                createCdr(cdrFields, "68") +
                 "\n" +
-                createCdr("67");
+                createCdr(cdrFields, "67");
     }
 
-    protected List<String> getMobileFields(String code) {
+    protected List<String> getMobileFields() {
         List<String> cdrFields = getCallCdrFields();
         cdrFields.add(29, "");
         cdrFields.add(30, "");
@@ -45,17 +47,17 @@ public class MobileCallCdr extends BasicCallCdrFields {
         cdrFields.add(33, "");
         cdrFields.add(34, "");
         cdrFields.add(35, "");
-        cdrFields.set(3, code);
-        cdrFields.set(12, getPnASignCount());
-        cdrFields.set(13, getCgpn());
+        cdrFields.set(3, getCode());
+        cdrFields.set(12, getMobilePnASignCount());
+        cdrFields.set(13, getMobileCgpn());
         return cdrFields;
     }
 
-    private String getPnASignCount() {
-        return pnASignCount;
+    private String getMobilePnASignCount() {
+        return generateCdrField("mobile_pb_a_sign_count", mobilePnASignCount);
     }
 
-    private String getCgpn() {
-        return cgpn;
+    private String getMobileCgpn() {
+        return generateCdrField("mobile_cgpn", mobileCgpn);
     }
 }

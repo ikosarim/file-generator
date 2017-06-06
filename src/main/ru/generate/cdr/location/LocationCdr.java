@@ -30,14 +30,15 @@ public class LocationCdr extends MobileCallCdr {
     }
 
     @Override
-    public String createCdr(String code) {
-        return getLocationFields(code).stream()
+    public String createCdr(List<String> cdrFields, String code) {
+        cdrFields.set(3, code);
+        return cdrFields.stream()
                 .map(field -> field == null ? field = "" : field)
                 .collect(Collectors.joining(";"));
     }
 
-    private List<String> getLocationFields(String code) {
-        List<String> cdrFields = getMobileFields(code);
+    private List<String> getLocationFields() {
+        List<String> cdrFields = getMobileFields();
         cdrFields.set(29, getMcc());
         cdrFields.set(30, getMnc());
         cdrFields.set(31, getLac());
@@ -50,40 +51,41 @@ public class LocationCdr extends MobileCallCdr {
 
     @Override
     public String createMessageCdr() {
-        return createCdr("65") +
+        List<String> cdrFields = getLocationFields();
+        return createCdr(cdrFields, "65") +
                 "\n" +
-                createCdr("66") +
+                createCdr(cdrFields, "66") +
                 "\n" +
-                createCdr("68") +
+                createCdr(cdrFields, "68") +
                 "\n" +
-                createCdr("67");
+                createCdr(cdrFields, "67");
     }
 
     private String getMcc() {
-        return mcc;
+        return generateCdrField("mcc", mcc);
     }
 
     private String getMnc() {
-        return mnc;
+        return generateCdrField("mnc", mnc);
     }
 
     private String getLac() {
-        return lac;
+        return generateCdrField("lac", lac);
     }
 
     private String getCl() {
-        return cl;
+        return generateCdrField("cl", cl);
     }
 
     private String getMobileIdType() {
-        return mobileIdType;
+        return generateCdrField("mobile_id_type", mobileIdType);
     }
 
     private String getMobileTypeSignCount() {
-        return mobileTypeSignCount;
+        return generateCdrField("mobile_type_sign_count", mobileTypeSignCount);
     }
 
     private String getMobileId() {
-        return mobileId;
+        return generateCdrField("mobile_id", mobileId);
     }
 }

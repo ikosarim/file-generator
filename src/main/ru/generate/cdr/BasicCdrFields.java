@@ -1,9 +1,6 @@
 package ru.generate.cdr;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 /**
  * Created by kosarim on 5/3/17.
@@ -18,7 +15,7 @@ public abstract class BasicCdrFields implements ICdr {
     //    2F    3M      3S
     private String liId = "1";
     //    4FSP    5MSP      5SSp
-    private String callId;
+    private String callId = "1";
     //    5F    6M      8S
     private String objectType = "1";
     //    6FSP    7MSP      9SSP
@@ -69,47 +66,60 @@ public abstract class BasicCdrFields implements ICdr {
         return cdrFields;
     }
 
-    public Properties getProperties() {
-        return properties;
+    public String generateCdrField(String propertyName, String fieldValue){
+        String cdrField = properties.getProperty(propertyName, fieldValue);
+        String[] boundaryValues = cdrField.split("-");
+        if (boundaryValues.length > 1){
+            return getRandomValue(boundaryValues);
+        }
+        return cdrField;
+    }
+
+    private String getRandomValue(String[] values){
+        Random random = new Random();
+        int max = Integer.parseInt(values[1]);
+        int min = Integer.parseInt(values[0]);
+        int randomFromRange = random.nextInt((max - min) + 1) + min;
+        return String.valueOf(randomFromRange);
     }
 
     private String getTimestamp() {
-        return timestamp;
+        return generateCdrField("timestamp", timestamp);
     }
 
     private String getSystemId() {
-        return systemId;
+        return generateCdrField("system_id", systemId);
     }
 
     private String getLiId() {
-        return liId;
+        return generateCdrField("li_id", liId);
     }
 
     private String getCallId() {
-        return callId;
+        return generateCdrField("call_id", callId);
     }
 
     private String getObjectType() {
-        return objectType;
+        return generateCdrField("object_type", objectType);
     }
 
     private String getDataSrcObjNum() {
-        return dataSrcObjNum;
+        return generateCdrField("data_src_obj_num", dataSrcObjNum);
     }
 
     private String getTimeDay() {
-        return timeDay;
+        return generateCdrField("time_day", timeDay);
     }
 
     private String getTimeHour() {
-        return timeHour;
+        return generateCdrField("time_hour", timeHour);
     }
 
     private String getTimeMinute() {
-        return timeMinute;
+        return generateCdrField("time_minute", timeMinute);
     }
 
     private String getTimeSecond() {
-        return timeSecond;
+        return generateCdrField("time_second", timeSecond);
     }
 }

@@ -2,6 +2,7 @@ package ru.generate;
 
 import ru.generate.cdr.calls.FixedCallCdr;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -36,5 +37,14 @@ public class Main {
         } catch (IOException e) {
             System.out.println("Sorry can't write to file " + path);
         }
+    }
+    private Properties getCorrectProperties() {
+        Properties properties = new Properties();
+        try (FileInputStream propertyFile = new FileInputStream("./src/resources/cdr.properties")){
+            properties.load(propertyFile);
+        } catch (IOException e){
+            throw new RuntimeException("Нет проперти файла, стек - " + e);
+        }
+        return properties;
     }
 }

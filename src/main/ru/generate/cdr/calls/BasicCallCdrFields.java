@@ -10,7 +10,7 @@ import java.util.List;
 public abstract class BasicCallCdrFields extends BasicCdrFields {
 
     //    3FSP    4MSP
-    private String code;
+    private String code = "65";
     //    7F    8M
     private String criteriaType = "24";
     //    8F    9M
@@ -22,7 +22,7 @@ public abstract class BasicCallCdrFields extends BasicCdrFields {
     //    11FSP   14MSP
     private String cdpnType = "";
     //    14FSP   15MSP
-    private String pnBsignCount;
+    private String pnBSignCount;
     //    15FSP   16MSP
     private String cdpn;
     //    16F   17M
@@ -48,6 +48,17 @@ public abstract class BasicCallCdrFields extends BasicCdrFields {
 
     protected List<String> getCallCdrFields(){
         List<String> cdrFields = getBasicCdrFields();
+        cdrFields.set(3, getCode());
+        cdrFields.set(7, getCriteriaType());
+        cdrFields.set(8, getCallType());
+        cdrFields.set(9, getSuppServicePhase());
+        cdrFields.set(10, getCgpnType());
+        cdrFields.set(11, getCdpnType());
+        cdrFields.set(14, getPnBSignCount());
+        cdrFields.set(15, getCdpn());
+        cdrFields.set(16, getTrunkNum());
+        cdrFields.set(17, getTslA());
+        cdrFields.set(18, getTslB());
         cdrFields.add(23, getPriority());
         cdrFields.add(24, getOperationCode());
         cdrFields.add(25, getServiceCode());
@@ -58,75 +69,75 @@ public abstract class BasicCallCdrFields extends BasicCdrFields {
         return cdrFields;
     }
 
-    private String getCode() {
-        return code;
+    String getCode() {
+        return generateCdrField("code", code);
     }
 
     private String getCriteriaType() {
-        return criteriaType;
+        return generateCdrField("criteria_type", criteriaType);
     }
 
     private String getCallType() {
-        return callType;
+        return generateCdrField("call_type", callType);
     }
 
     private String getSuppServicePhase() {
-        return suppServicePhase;
+        return generateCdrField("supp_service_phase", suppServicePhase);
     }
 
     private String getCgpnType() {
-        return cgpnType;
+        return generateCdrField("cgpn_type", cgpnType);
     }
 
     private String getCdpnType() {
-        return cdpnType;
+        return generateCdrField("cdpn_type", cdpnType);
     }
 
-    private String getPnBsignCount() {
-        return pnBsignCount;
+    private String getPnBSignCount() {
+        return generateCdrField("pn_b_sign_count", pnBSignCount);
     }
 
     private String getCdpn() {
-        return cdpn;
+        return generateCdrField("cdpn", cdpn);
     }
 
     private String getTrunkNum() {
-        return trunkNum;
+        return generateCdrField("trunk_num", trunkNum);
     }
 
     private String getTslA() {
-        return tslA;
+        return generateCdrField("tsl_a", tslA);
     }
 
     private String getTslB() {
-        return tslB;
+        return generateCdrField("tsl_b", tslB);
     }
 
     private String getPriority() {
-        return priority;
+        return generateCdrField("priority", priority);
     }
 
     private String getOperationCode() {
-        return operationCode;
+        return generateCdrField("operation_code", operationCode);
     }
 
     private String getServiceCode() {
-        return serviceCode;
+        return generateCdrField("service_code", serviceCode);
     }
 
     private String getServiceDescr() {
-        return serviceDescr;
+        return generateCdrField("service_descr", serviceDescr);
     }
 
     private String getServiceAddCode() {
-        return serviceAddCode;
+        return generateCdrField("service_add_code", serviceAddCode);
     }
 
     private String getAddCode() {
-        return addCode;
+        return generateCdrField("add_code", addCode);
     }
 
     private String getCallContentType(){
-        return callContentType;
+        return generateCdrField("call_content_type", callContentType);
     }
 }

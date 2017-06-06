@@ -10,9 +10,9 @@ import java.util.stream.Collectors;
 public class FixedCallCdr extends BasicCallCdrFields {
 
     //    11FSP
-    private String pnASignCount = "11";
+    private String fixPnASignCount = "11";
     //    12FSP
-    private String cgpn;
+    private String fixCgpn;
 
     public FixedCallCdr(Properties properties) {
         this.properties = properties;
@@ -20,35 +20,37 @@ public class FixedCallCdr extends BasicCallCdrFields {
 
     @Override
     public String createMessageCdr(){
-        return createCdr("65") +
+        List<String> cdrFields = getFixedFields();
+        return createCdr(cdrFields, "65") +
                 "\n" +
-                createCdr("66") +
+                createCdr(cdrFields, "66") +
                 "\n" +
-                createCdr("68") +
+                createCdr(cdrFields, "68") +
                 "\n" +
-                createCdr("67");
+                createCdr(cdrFields, "67");
     }
 
     @Override
-    public String createCdr(String code) {
-        return getFixedFields(code).stream()
-                .map(field -> field == null ? field = "" : field)
-                .collect(Collectors.joining(";"));
+    public String createCdr(List<String> cdrFields, String code) {
+        cdrFields.set(3, code);
+            return cdrFields.stream()
+                    .map(field -> field == null ? field = "" : field)
+                    .collect(Collectors.joining(";"));
     }
 
-    private List<String> getFixedFields(String code) {
+    private List<String> getFixedFields() {
         List<String> cdrFields = getCallCdrFields();
-        cdrFields.set(3, code);
-        cdrFields.set(11, getPnASignCount());
-        cdrFields.set(12, getCgpn());
+        cdrFields.set(3, getCode());
+        cdrFields.set(11, getFixPnASignCount());
+        cdrFields.set(12, getFixCgpn());
         return cdrFields;
     }
 
-    private String getPnASignCount() {
-        return pnASignCount;
+    private String getFixPnASignCount() {
+        return generateCdrField("fix_pn_a_sign_count", fixPnASignCount);
     }
 
-    private String getCgpn() {
-        return cgpn;
+    private String getFixCgpn() {
+        return generateCdrField("fix_cgpn", fixCgpn);
     }
 }

@@ -66,13 +66,24 @@ public abstract class BasicCdrFields implements ICdr {
         return cdrFields;
     }
 
-    public String generateCdrField(String propertyName, String fieldValue){
+    protected String generateCdrField(String propertyName, String fieldValue){
         String cdrField = properties.getProperty(propertyName, fieldValue);
         String[] boundaryValues = cdrField.split("-");
         if (boundaryValues.length > 1){
             return getRandomValue(boundaryValues);
         }
         return cdrField;
+    }
+
+    protected String generateDataSrcField(String propertyName, String fieldValue){
+        String cdrField = properties.getProperty(propertyName, fieldValue)
+                .replaceAll("\\(", "")
+                .replaceAll("\\)", "");
+        String[] boundaryValues = cdrField.split("-");
+        if (boundaryValues.length > 1){
+            return "(" + getRandomValue(boundaryValues) + ")";
+        }
+        return "(" + cdrField + ")";
     }
 
     private String getRandomValue(String[] values){
@@ -104,7 +115,7 @@ public abstract class BasicCdrFields implements ICdr {
     }
 
     private String getDataSrcObjNum() {
-        return generateCdrField("data_src_obj_num", dataSrcObjNum);
+        return generateDataSrcField("data_src_obj_num", dataSrcObjNum);
     }
 
     private String getTimeDay() {

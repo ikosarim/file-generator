@@ -54,7 +54,7 @@ public class MobileCallCdr extends BasicCallCdrFields {
     }
 
     private String getMobilePnASignCount() {
-        return generateCdrField("mobile_pb_a_sign_count", mobilePnASignCount);
+        return generateCdrField("mobile_pn_a_sign_count", mobilePnASignCount);
     }
 
     private String getMobileCgpn() {

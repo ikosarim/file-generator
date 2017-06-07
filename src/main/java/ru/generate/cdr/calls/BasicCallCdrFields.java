@@ -46,7 +46,7 @@ public abstract class BasicCallCdrFields extends BasicCdrFields {
 
     private String callContentType = "1";
 
-    protected List<String> getCallCdrFields(){
+    List<String> getCallCdrFields(){
         List<String> cdrFields = getBasicCdrFields();
         cdrFields.set(3, getCode());
         cdrFields.set(7, getCriteriaType());

@@ -12,7 +12,7 @@ public class FixedCallCdr extends BasicCallCdrFields {
     //    11FSP
     private String fixPnASignCount = "11";
     //    12FSP
-    private String fixCgpn;
+    private String fixCgpn = "0";
 
     public FixedCallCdr(Properties properties) {
         this.properties = properties;

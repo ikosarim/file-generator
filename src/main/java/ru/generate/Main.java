@@ -19,7 +19,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         Properties cdrProperties = new Properties();
-        cdrProperties.load(Files.newInputStream(Paths.get("src/resources/cdr.properties")));
+        cdrProperties.load(Files.newInputStream(Paths.get("./src/main/resources/cdr.properties")));
         String path = cdrProperties.getProperty("path");
         List<String> cdrs = new ArrayList<>();
         for (int i = 0; i < 40; i++) {

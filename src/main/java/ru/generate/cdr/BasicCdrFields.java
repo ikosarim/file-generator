@@ -19,7 +19,7 @@ public abstract class BasicCdrFields implements ICdr {
     //    5F    6M      8S
     private String objectType = "1";
     //    6FSP    7MSP      9SSP
-    private String dataSrcObjNum;
+    private String dataSrcObjNum = "(1)";
     //    19F   20M     15S
     private String timeDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH) >= 10 ?
             Integer.toString(Calendar.getInstance().get(Calendar.DAY_OF_MONTH))

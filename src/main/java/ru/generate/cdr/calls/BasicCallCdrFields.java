@@ -16,15 +16,15 @@ public abstract class BasicCallCdrFields extends BasicCdrFields {
     //    8F    9M
     private String callType = "0";
     //    9F   10M
-    private String suppServicePhase = "";
+    private String suppServicePhase = "1";
     //    10FSP  11MSP
-    private String cgpnType = "";
+    private String cgpnType = "1";
     //    11FSP   14MSP
-    private String cdpnType = "";
+    private String cdpnType = "1";
     //    14FSP   15MSP
-    private String pnBSignCount;
+    private String pnBSignCount = "1";
     //    15FSP   16MSP
-    private String cdpn;
+    private String cdpn = "1";
     //    16F   17M
     private String trunkNum = "50";
     //    17F   18M
@@ -42,7 +42,7 @@ public abstract class BasicCallCdrFields extends BasicCdrFields {
     //    27F   28M
     private String serviceAddCode = "4294967295";
     //    28F   29M
-    private String addCode = "-1";
+    private String addCode = "0";
 
     private String callContentType = "1";
 
@@ -65,6 +65,7 @@ public abstract class BasicCallCdrFields extends BasicCdrFields {
         cdrFields.add(26, getServiceDescr());
         cdrFields.add(27, getServiceAddCode());
         cdrFields.add(28, getAddCode());
+        cdrFields.add(29, getCallContentType());
         System.out.println(cdrFields);
         return cdrFields;
     }

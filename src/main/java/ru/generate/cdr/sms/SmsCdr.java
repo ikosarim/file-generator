@@ -2,6 +2,7 @@ package ru.generate.cdr.sms;
 
 import ru.generate.cdr.BasicCdrFields;
 
+import java.util.Base64;
 import java.util.List;
 import java.util.Properties;
 import java.util.stream.Collectors;
@@ -123,7 +124,7 @@ public class SmsCdr extends BasicCdrFields {
     }
 
     private String getSmsMessage() {
-        properties.getProperty("sms_message", smsMessage);
-        return smsMessage;
+        return Base64.getEncoder()
+                .encodeToString(properties.getProperty("sms_message", smsMessage).getBytes());
     }
 }

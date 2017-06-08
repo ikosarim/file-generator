@@ -35,7 +35,7 @@ public class SmsCdr extends BasicCdrFields {
     //    21SSP
     private String recvObjectPn;
     //    22SSP
-    private String smsMessage;
+    private List<String> smsMessage;
 
     public SmsCdr(Properties properties) {
         this.properties = properties;
@@ -54,13 +54,14 @@ public class SmsCdr extends BasicCdrFields {
         cdrFields.set(19, getRecvPnType());
         cdrFields.set(20, getRecvObjectPnQuantity());
         cdrFields.set(21, getRecvObjectPn());
-        cdrFields.set(22, getSmsMessage());
+        cdrFields.set(22, getSmsMessage(0));
         return cdrFields;
     }
 
     @Override
     public String createCdr(List<String> cdrFields, String messageNumber) {
         cdrFields.set(6, messageNumber);
+        cdrFields.set(22, getSmsMessage(Integer.parseInt(messageNumber) - 1));
         return cdrFields.stream()
                 .map(field -> field == null ? field = "" : field)
                 .collect(Collectors.joining(";"));
@@ -72,7 +73,7 @@ public class SmsCdr extends BasicCdrFields {
         List<String> cdrFields = getSmsCdrFields();
         for (int i = 0; i < Integer.parseInt(getMessagesTotal()); i++) {
             messageBuilder.append(createCdr(cdrFields, String.valueOf(i + 1)));
-            if (i != Integer.parseInt(getMessagesTotal()) - 1){
+            if (i != Integer.parseInt(getMessagesTotal()) - 1) {
                 messageBuilder.append("\n");
             }
         }
@@ -123,8 +124,8 @@ public class SmsCdr extends BasicCdrFields {
         return generateCdrField("recv_object_pn", recvObjectPn);
     }
 
-    private String getSmsMessage() {
+    private String getSmsMessage(int messageNumber) {
         return Base64.getEncoder()
-                .encodeToString(properties.getProperty("sms_message", smsMessage).getBytes());
+                .encodeToString(properties.getProperty("sms_message", smsMessage.get(messageNumber)).getBytes());
     }
 }

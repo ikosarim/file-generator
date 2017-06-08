@@ -1,6 +1,6 @@
-package ru.generate.cdr.command;
+package ru.generate.command;
 
-import ru.generate.cdr.ConsoleHelper;
+import ru.generate.operation.ConsoleHelper;
 
 /**
  * @author kosarim

@@ -75,7 +75,7 @@ public abstract class BasicCdrFields implements ICdr {
         return cdrField;
     }
 
-    protected String generateDataSrcField(String propertyName, String fieldValue){
+    private String generateDataSrcField(String propertyName, String fieldValue){
         String cdrField = properties.getProperty(propertyName, fieldValue)
                 .replaceAll("\\(", "")
                 .replaceAll("\\)", "");

@@ -3,7 +3,6 @@ package ru.generate;
 import ru.generate.cdr.calls.FixedCallCdr;
 import ru.generate.cdr.calls.MobileCallCdr;
 import ru.generate.cdr.location.LocationCdr;
-import ru.generate.cdr.sms.SmsCdr;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -158,7 +157,7 @@ public class Main {
     private static List<String> createSmsCdrs(int cdrsNumber){
         ArrayList<String> cdrs = new ArrayList<>();
         for (int i = 0; i < cdrsNumber; i++) {
-            cdrs.add(new SmsCdr(getCorrectProperties()).createMessageCdr());
+//            cdrs.add(new SmsCdr(getCorrectProperties()).createMessageCdr());
         }
         return cdrs;
     }

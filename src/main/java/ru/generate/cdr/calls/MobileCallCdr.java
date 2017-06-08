@@ -12,7 +12,7 @@ public class MobileCallCdr extends BasicCallCdrFields {
     //    12MSP
     private String mobilePnASignCount = "4";
     //    13MSP
-    private String mobileCgpn;
+    private String mobileCgpn = "1";
 
     public MobileCallCdr(Properties properties) {
         this.properties = properties;

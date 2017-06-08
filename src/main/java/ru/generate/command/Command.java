@@ -1,4 +1,4 @@
-package ru.generate.cdr.command;
+package ru.generate.command;
 
 /**
  * @author kosarim

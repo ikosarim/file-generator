@@ -11,19 +11,19 @@ import java.util.stream.Collectors;
 public class LocationCdr extends MobileCallCdr {
 
     //    30M
-    private String mcc;
+    private String mcc = "1";
     //    31M
-    private String mnc;
+    private String mnc = "1";
     //    32M
-    private String lac;
+    private String lac = "1";
     //    33M
-    private String cl;
+    private String cl = "1";
     //    34M
-    private String mobileIdType;
+    private String mobileIdType = "1";
     //    35M
-    private String mobileTypeSignCount;
+    private String mobileTypeSignCount = "1";
     //    36M
-    private String mobileId;
+    private String mobileId = "1";
 
     public LocationCdr(Properties properties) {
         super(properties);

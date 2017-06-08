@@ -1,4 +1,4 @@
-package ru.generate.cdr;
+package ru.generate.operation;
 
 import java.io.BufferedReader;
 import java.io.IOException;

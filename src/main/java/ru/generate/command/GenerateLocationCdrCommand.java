@@ -6,8 +6,8 @@ import ru.generate.operation.ConsoleHelper;
 
 import java.util.ArrayList;
 
-import static ru.generate.Generate.getCorrectProperties;
-import static ru.generate.Generate.writeCdrsToFile;
+import static ru.generate.WorkWithFileAndConsole.getCorrectProperties;
+import static ru.generate.WorkWithFileAndConsole.writeCdrsToFile;
 
 /**
  * @author kosarim

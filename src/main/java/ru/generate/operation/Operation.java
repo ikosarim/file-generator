@@ -9,4 +9,5 @@ public enum Operation {
     SMS_CDR,
     LOCATION_CDR,
     EXIT
+
 }

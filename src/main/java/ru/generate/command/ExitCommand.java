@@ -7,7 +7,7 @@ import ru.generate.operation.ConsoleHelper;
  */
 public class ExitCommand implements Command {
     @Override
-    public void execute() throws Exception {
+    public void execute(int callsNumber) throws Exception {
         ConsoleHelper.writeMessage("До встречи!");
     }
 }

@@ -18,7 +18,7 @@ import java.util.Scanner;
 /**
  * Created by rocky-po on 04.05.17.
  */
-public class Main {
+public class Generate {
 
     public static void main(String[] args) throws IOException {
         int cdrsNumber = getCdrsNumber();
@@ -88,20 +88,20 @@ public class Main {
             case 0:
                 System.exit(-1);
         }
-        writeCdrsToFile(path, cdrs);
+//        writeCdrsToFile(path, cdrs);
     }
 
-    private static void writeCdrsToFile(String path, List<String> cdrs) {
+    public static void writeCdrsToFile(String path, String fileName, List<String> cdrs) {
         try {
-            Files.write(Paths.get(path), cdrs,
+            Files.write(Paths.get(path + fileName), cdrs,
                     StandardCharsets.UTF_8,
                     StandardOpenOption.CREATE,
                     StandardOpenOption.APPEND);
         } catch (IOException e) {
-            System.out.println("Sorry can't write to file " + path);
+            System.out.println("Sorry can't write to file " + path + fileName);
         }
     }
-    private static Properties getCorrectProperties() {
+    public static Properties getCorrectProperties() {
         Properties properties = new Properties();
         try (FileInputStream propertyFile = new FileInputStream("./src/resources/cdr.properties")){
             properties.load(propertyFile);

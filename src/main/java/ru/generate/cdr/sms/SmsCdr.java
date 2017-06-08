@@ -5,12 +5,13 @@ import ru.generate.cdr.BasicCdrFields;
 import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
+import java.util.Properties;
 import java.util.stream.Collectors;
 
 /**
  * Created by kosarim on 5/3/17.
  */
-public class SmsCdr extends BasicCdrFields implements Cloneable {
+public class SmsCdr extends BasicCdrFields {
 
     //    4S
     private String smsCode = "65";
@@ -36,6 +37,10 @@ public class SmsCdr extends BasicCdrFields implements Cloneable {
     private String recvObjectPn = "1";
     //    22SSP
     private List<String> smsMessage = Collections.singletonList("Привет");
+
+    public SmsCdr(Properties properties) {
+        this.properties = properties;
+    }
 
     private List<String> getSmsCdrFields() {
         List<String> cdrFields = getBasicCdrFields();

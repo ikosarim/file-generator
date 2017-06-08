@@ -20,16 +20,22 @@ public abstract class BasicCdrFields implements ICdr {
     private String objectType = "1";
     //    6FSP    7MSP      9SSP
     private String dataSrcObjNum = "(1)";
+    //    ***
+    public String timeYear = Integer.toString(Calendar.getInstance().get(Calendar.YEAR));
+    //    ***
+    public String timeMonth = Calendar.getInstance().get(Calendar.MONTH) >= 10 ?
+            Integer.toString(Calendar.getInstance().get(Calendar.MONTH))
+            : "0" + Integer.toString(Calendar.getInstance().get(Calendar.MONTH));
     //    19F   20M     15S
-    private String timeDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH) >= 10 ?
+    public String timeDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH) >= 10 ?
             Integer.toString(Calendar.getInstance().get(Calendar.DAY_OF_MONTH))
             : "0" + Integer.toString(Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
     //    20F   21M     16S
-    private String timeHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY) >= 10 ?
+    public String timeHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY) >= 10 ?
             Integer.toString(Calendar.getInstance().get(Calendar.HOUR_OF_DAY))
             : "0" + Integer.toString(Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
     //    21F   22M     17S
-    private String timeMinute = Calendar.getInstance().get(Calendar.MINUTE) >= 10 ?
+    public String timeMinute = Calendar.getInstance().get(Calendar.MINUTE) >= 10 ?
             Integer.toString(Calendar.getInstance().get(Calendar.MINUTE))
             : "0" + Integer.toString(Calendar.getInstance().get(Calendar.MINUTE));
     //    22F   23M     18S
@@ -66,27 +72,27 @@ public abstract class BasicCdrFields implements ICdr {
         return cdrFields;
     }
 
-    protected String generateCdrField(String propertyName, String fieldValue){
+    protected String generateCdrField(String propertyName, String fieldValue) {
         String cdrField = properties.getProperty(propertyName, fieldValue);
         String[] boundaryValues = cdrField.split("-");
-        if (boundaryValues.length > 1){
+        if (boundaryValues.length > 1) {
             return getRandomValue(boundaryValues);
         }
         return cdrField;
     }
 
-    private String generateDataSrcField(String propertyName, String fieldValue){
+    private String generateDataSrcField(String propertyName, String fieldValue) {
         String cdrField = properties.getProperty(propertyName, fieldValue)
                 .replaceAll("\\(", "")
                 .replaceAll("\\)", "");
         String[] boundaryValues = cdrField.split("-");
-        if (boundaryValues.length > 1){
+        if (boundaryValues.length > 1) {
             return "(" + getRandomValue(boundaryValues) + ")";
         }
         return "(" + cdrField + ")";
     }
 
-    private String getRandomValue(String[] values){
+    private String getRandomValue(String[] values) {
         Random random = new Random();
         int max = Integer.parseInt(values[1]);
         int min = Integer.parseInt(values[0]);

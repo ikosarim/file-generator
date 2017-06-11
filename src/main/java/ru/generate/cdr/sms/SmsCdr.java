@@ -5,6 +5,8 @@ import ru.generate.cdr.BasicCdrFields;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static org.apache.commons.lang.math.NumberUtils.toInt;
+
 /**
  * Created by kosarim on 5/3/17.
  */
@@ -17,7 +19,7 @@ public class SmsCdr extends BasicCdrFields {
     //    7SSP
     private String messagesTotal = "3";
     //    10S
-    public String pnType = "1";
+    private String pnType = "1";
     //    11SSP
     private String objectPnQuantity = "1";
     //    12SSP
@@ -69,7 +71,7 @@ public class SmsCdr extends BasicCdrFields {
     public String createMessageCdr() {
         List<String> smsCdrs = new ArrayList<>();
 
-        int messagesCount = Integer.parseInt(getMessagesTotal());
+        int messagesCount = toInt(getMessagesTotal());
         for (int i = 1; i <= messagesCount; i++) {
             String smsCdr = createCdr(getSmsCdrFields(), String.valueOf(i));
             smsCdrs.add(smsCdr);

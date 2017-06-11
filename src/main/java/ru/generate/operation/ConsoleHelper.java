@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 
@@ -44,8 +46,14 @@ public class ConsoleHelper {
     }
 
     public static Properties getCorrectProperties() {
+        String path = "../cdr.properties";
         Properties properties = new Properties();
-        try (FileInputStream propertyFile = new FileInputStream("./src/resources/cdr.properties")) {
+
+        if (!Files.exists(Paths.get(path))) {
+            System.out.println("Не нашли файл: 'cdr.properties' с нами в папке, живем без них!");
+            return properties;
+        }
+        try (FileInputStream propertyFile = new FileInputStream(path)) {
             properties.load(propertyFile);
         } catch (IOException e) {
             // throw new RuntimeException("Нет проперти файла, стек - " + e);

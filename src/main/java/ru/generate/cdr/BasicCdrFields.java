@@ -1,8 +1,11 @@
 package ru.generate.cdr;
 
-import org.apache.commons.lang.math.NumberUtils;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+import java.util.Random;
 
-import java.util.*;
+import static org.apache.commons.lang.math.NumberUtils.toInt;
 
 /**
  * Created by kosarim on 5/3/17.
@@ -11,7 +14,7 @@ public abstract class BasicCdrFields implements ICdr {
 
     protected Properties properties;
     //    0F    1M      1S
-    private String timestamp = Long.toString(System.currentTimeMillis());
+    private String timestamp = "1497206217502-1497206248502";
     //    1F    2M      2S
     private String systemId = "3";
     //    2F    3M      3S
@@ -23,27 +26,17 @@ public abstract class BasicCdrFields implements ICdr {
     //    6FSP    7MSP      9SSP
     private String dataSrcObjNum = "(1)";
     //    ***
-    public String timeYear = Integer.toString(Calendar.getInstance().get(Calendar.YEAR));
+    private String timeYear = "2017";
     //    ***
-    public String timeMonth = Calendar.getInstance().get(Calendar.MONTH) >= 10 ?
-            Integer.toString(Calendar.getInstance().get(Calendar.MONTH))
-            : "0" + Integer.toString(Calendar.getInstance().get(Calendar.MONTH));
+    private String timeMonth = "2313";
     //    19F   20M     15S
-    public String timeDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH) >= 10 ?
-            Integer.toString(Calendar.getInstance().get(Calendar.DAY_OF_MONTH))
-            : "0" + Integer.toString(Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+    private String timeDay = "1444";
     //    20F   21M     16S
-    public String timeHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY) >= 10 ?
-            Integer.toString(Calendar.getInstance().get(Calendar.HOUR_OF_DAY))
-            : "0" + Integer.toString(Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
+    private String timeHour = "1233";
     //    21F   22M     17S
-    public String timeMinute = Calendar.getInstance().get(Calendar.MINUTE) >= 10 ?
-            Integer.toString(Calendar.getInstance().get(Calendar.MINUTE))
-            : "0" + Integer.toString(Calendar.getInstance().get(Calendar.MINUTE));
+    private String timeMinute = "44343";
     //    22F   23M     18S
-    private String timeSecond = Calendar.getInstance().get(Calendar.SECOND) >= 10 ?
-            Integer.toString(Calendar.getInstance().get(Calendar.SECOND))
-            : "0" + Integer.toString(Calendar.getInstance().get(Calendar.SECOND));
+    private String timeSecond = "1111";
 
     protected List<String> getBasicCdrFields() {
         List<String> cdrFields = new ArrayList<>();
@@ -90,8 +83,8 @@ public abstract class BasicCdrFields implements ICdr {
         String[] boundaryValues = possibleFieldValues.split("-");
 
         if (boundaryValues.length > 1) {
-            int max = NumberUtils.toInt(boundaryValues[1]);
-            int min = NumberUtils.toInt(boundaryValues[0]);
+            int max = toInt(boundaryValues[1]);
+            int min = toInt(boundaryValues[0]);
             return generateRandomValue(min, max);
         }
         return possibleFieldValues;

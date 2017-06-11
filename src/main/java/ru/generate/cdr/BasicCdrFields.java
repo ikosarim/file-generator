@@ -1,5 +1,7 @@
 package ru.generate.cdr;
 
+import org.apache.commons.lang.math.NumberUtils;
+
 import java.util.*;
 
 /**
@@ -68,35 +70,35 @@ public abstract class BasicCdrFields implements ICdr {
         cdrFields.add(20, getTimeHour());
         cdrFields.add(21, getTimeMinute());
         cdrFields.add(22, getTimeSecond());
-        System.out.println(cdrFields);
         return cdrFields;
     }
 
     protected String generateCdrField(String propertyName, String fieldValue) {
         String cdrField = properties.getProperty(propertyName, fieldValue);
-        String[] boundaryValues = cdrField.split("-");
-        if (boundaryValues.length > 1) {
-            return getRandomValue(boundaryValues);
-        }
-        return cdrField;
+        return createRandomValue(cdrField);
     }
 
     private String generateDataSrcField(String propertyName, String fieldValue) {
         String cdrField = properties.getProperty(propertyName, fieldValue)
                 .replaceAll("\\(", "")
                 .replaceAll("\\)", "");
-        String[] boundaryValues = cdrField.split("-");
-        if (boundaryValues.length > 1) {
-            return "(" + getRandomValue(boundaryValues) + ")";
-        }
-        return "(" + cdrField + ")";
+
+        return createRandomValue(cdrField);
     }
 
-    private String getRandomValue(String[] values) {
-        Random random = new Random();
-        int max = Integer.parseInt(values[1]);
-        int min = Integer.parseInt(values[0]);
-        int randomFromRange = random.nextInt((max - min) + 1) + min;
+    private String createRandomValue(String possibleFieldValues) {
+        String[] boundaryValues = possibleFieldValues.split("-");
+
+        if (boundaryValues.length > 1) {
+            int max = NumberUtils.toInt(boundaryValues[1]);
+            int min = NumberUtils.toInt(boundaryValues[0]);
+            return generateRandomValue(min, max);
+        }
+        return possibleFieldValues;
+    }
+
+    private String generateRandomValue(int min, int max) {
+        int randomFromRange = new Random().nextInt((max - min) + 1) + min;
         return String.valueOf(randomFromRange);
     }
 

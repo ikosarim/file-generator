@@ -34,7 +34,6 @@ public class FixedCallCdr extends BasicCallCdrFields {
     public String createCdr(List<String> cdrFields, String code) {
         cdrFields.set(3, code);
             return cdrFields.stream()
-                    .map(field -> field == null ? field = "" : field)
                     .collect(Collectors.joining(";"));
     }
 

@@ -2,10 +2,7 @@ package ru.generate.cdr.sms;
 
 import ru.generate.cdr.BasicCdrFields;
 
-import java.util.Base64;
-import java.util.Collections;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -55,30 +52,29 @@ public class SmsCdr extends BasicCdrFields {
         cdrFields.set(19, getRecvPnType());
         cdrFields.set(20, getRecvObjectPnQuantity());
         cdrFields.set(21, getRecvObjectPn());
-        cdrFields.set(22, getSmsMessage(0));
+        cdrFields.set(22, getSmsMessage());
         return cdrFields;
     }
 
     @Override
     public String createCdr(List<String> cdrFields, String messageNumber) {
         cdrFields.set(6, messageNumber);
-        cdrFields.set(22, getSmsMessage(Integer.parseInt(messageNumber) - 1));
-        return cdrFields.stream()
-                .map(field -> field == null ? field = "" : field)
+        cdrFields.set(22, getSmsMessage());
+        return cdrFields
+                .stream()
                 .collect(Collectors.joining(";"));
     }
 
     @Override
     public String createMessageCdr() {
-        StringBuilder messageBuilder = new StringBuilder();
-        List<String> cdrFields = getSmsCdrFields();
-        for (int i = 0; i < Integer.parseInt(getMessagesTotal()); i++) {
-            messageBuilder.append(createCdr(cdrFields, String.valueOf(i + 1)));
-            if (i != Integer.parseInt(getMessagesTotal()) - 1) {
-                messageBuilder.append("\n");
-            }
+        List<String> smsCdrs = new ArrayList<>();
+
+        int messagesCount = Integer.parseInt(getMessagesTotal());
+        for (int i = 1; i <= messagesCount; i++) {
+            String smsCdr = createCdr(getSmsCdrFields(), String.valueOf(i));
+            smsCdrs.add(smsCdr);
         }
-        return messageBuilder.toString();
+        return smsCdrs.stream().collect(Collectors.joining("\n"));
     }
 
     private String getSmsCode() {
@@ -125,8 +121,8 @@ public class SmsCdr extends BasicCdrFields {
         return generateCdrField("recv_object_pn", recvObjectPn);
     }
 
-    private String getSmsMessage(int messageNumber) {
+    private String getSmsMessage() {
         return Base64.getEncoder()
-                .encodeToString(properties.getProperty("sms_message", smsMessage.get(messageNumber)).getBytes());
+                .encodeToString(properties.getProperty("sms_message", smsMessage.get(0)).getBytes());
     }
 }

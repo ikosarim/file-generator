@@ -1,28 +1,47 @@
 package ru.generate.command;
 
 import ru.generate.cdr.location.LocationCdr;
-import ru.generate.cdr.sms.SmsCdr;
 import ru.generate.operation.ConsoleHelper;
 
-import java.util.ArrayList;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.time.LocalDateTime;
+import java.util.Properties;
 
-import static ru.generate.WorkWithFileAndConsole.getCorrectProperties;
-import static ru.generate.WorkWithFileAndConsole.writeCdrsToFile;
+import static ru.generate.operation.ConsoleHelper.*;
 
 /**
  * @author kosarim
  */
 public class GenerateLocationCdrCommand implements Command {
+
     @Override
-    public void execute(int callsNumber) throws Exception {
-        ConsoleHelper.writeMessage("Генерация cdr фиксированной связи");
-        LocationCdr locationCdr = new LocationCdr(getCorrectProperties());
-        String fileName = "mobile_calls__" + locationCdr.timeYear + locationCdr.timeMonth + locationCdr.timeDay +
-                locationCdr.timeHour + locationCdr.timeMinute + "_t" + locationCdr.timeMinute + ".cdr";
-        ArrayList<String> cdrs = new ArrayList<>();
-        for (int callNumber = 0; callNumber < callsNumber; callNumber++) {
-            cdrs.add(new SmsCdr(getCorrectProperties()).createMessageCdr());
+    public void execute(Properties properties) throws Exception {
+        int count = askCount();
+        if (count == 0) {
+            System.out.println("Выходим в меню");
+            return;
         }
-        writeCdrsToFile(getCorrectProperties().getProperty("path"), fileName, cdrs);
+        long startTime = System.currentTimeMillis();
+        ConsoleHelper.writeMessage("Генерация cdr местоположения");
+
+        System.out.println("\n-------------------------");
+
+        LocalDateTime now = LocalDateTime.now();
+
+        String filePath = properties.getProperty("path","../")
+                + "mobile_calls__" + now.format(formatter) + ".cdr";
+
+        try (PrintWriter writer = new PrintWriter(new FileWriter(filePath, true))) {
+            for (int i = 0; i < count; i++) {
+                writer.write(new LocationCdr(properties).createMessageCdr());
+                if (i % (count / 25) == 0) {
+                    System.out.print(ANSI_BLUE + "#" + ANSI_RESET);
+                }
+            }
+        }
+        System.out.println("\n-------------------------");
+        long stopTime = System.currentTimeMillis();
+        System.out.println("Total time spent: " + (stopTime - startTime) + " ms");
     }
 }

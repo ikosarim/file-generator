@@ -4,6 +4,7 @@ import ru.generate.command.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 /**
  * @author kosarim
@@ -19,10 +20,7 @@ public class CommandExecutor {
         allKnownCommandMap.put(Operation.EXIT, new ExitCommand());
     }
 
-    private CommandExecutor(){
-    }
-
-    public static void execute(Operation operation, int callsNumber) throws Exception{
-        allKnownCommandMap.get(operation).execute(callsNumber);
+    public static void execute(Operation operation, Properties properties) throws Exception{
+        allKnownCommandMap.get(operation).execute(properties);
     }
 }

@@ -5,9 +5,9 @@ import ru.generate.operation.ConsoleHelper;
 import ru.generate.operation.Operation;
 
 import java.io.IOException;
+import java.util.Properties;
 
-import static ru.generate.WorkWithFileAndConsole.getCdrsNumber;
-import static ru.generate.WorkWithFileAndConsole.getCorrectProperties;
+import static ru.generate.operation.ConsoleHelper.readInt;
 
 /**
  * Created by rocky-po on 04.05.17.
@@ -15,30 +15,32 @@ import static ru.generate.WorkWithFileAndConsole.getCorrectProperties;
 public class Generate {
 
     public static void main(String[] args) throws IOException {
-        int callsNumber = getCdrsNumber();
-        String path = getCorrectProperties().getProperty("path");
-
+        Properties properties = ConsoleHelper.getCorrectProperties();
         Operation operation = null;
         do {
             try {
                 operation = askOperation();
-                CommandExecutor.execute(operation, callsNumber);
+                CommandExecutor.execute(operation, properties);
             } catch (Exception e) {
-                ConsoleHelper.writeMessage("Файла по заданному пути нет - " + e);
+                ConsoleHelper.writeMessage("Неудачка " + e);
             }
         } while (operation != Operation.EXIT);
     }
 
-    public static Operation askOperation() throws IOException {
+    private static Operation askOperation() throws IOException {
         ConsoleHelper.writeMessage("");
         ConsoleHelper.writeMessage("Выберите операцию:");
-        ConsoleHelper.writeMessage(String.format("\t %d - упаковать файлы в архив", Operation.FIXED_CDR.ordinal()));
-        ConsoleHelper.writeMessage(String.format("\t %d - добавить файл в архив", Operation.MOBILE_CDR.ordinal()));
-        ConsoleHelper.writeMessage(String.format("\t %d - удалить файл из архива", Operation.SMS_CDR.ordinal()));
-        ConsoleHelper.writeMessage(String.format("\t %d - распаковать архив", Operation.LOCATION_CDR.ordinal()));
+        ConsoleHelper.writeMessage(String.format("\t %d - сгенерить фиксу", Operation.FIXED_CDR.ordinal()));
+        ConsoleHelper.writeMessage(String.format("\t %d - сгенерить мобилу", Operation.MOBILE_CDR.ordinal()));
+        ConsoleHelper.writeMessage(String.format("\t %d - сгенерить смс", Operation.SMS_CDR.ordinal()));
+        ConsoleHelper.writeMessage(String.format("\t %d - сгенерить местоположение", Operation.LOCATION_CDR.ordinal()));
         ConsoleHelper.writeMessage(String.format("\t %d - выход", Operation.EXIT.ordinal()));
-
-        return Operation.values()[ConsoleHelper.readInt()];
+        int operationNumber = readInt();
+        if (operationNumber <= 0 || operationNumber >= Operation.values().length) {
+            System.out.println("Нет такой команды!");
+            askOperation();
+        }
+        return Operation.values()[operationNumber];
     }
 
 }

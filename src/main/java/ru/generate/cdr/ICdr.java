@@ -10,4 +10,6 @@ public interface ICdr {
     String createCdr(List<String> cdrFields, String code);
 
     String createMessageCdr();
+
+    String generateCdrField(String propertyName, String fieldValue);
 }

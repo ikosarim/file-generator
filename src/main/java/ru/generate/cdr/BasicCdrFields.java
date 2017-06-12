@@ -66,7 +66,7 @@ public abstract class BasicCdrFields implements ICdr {
         return cdrFields;
     }
 
-    protected String generateCdrField(String propertyName, String fieldValue) {
+    public String generateCdrField(String propertyName, String fieldValue) {
         String cdrField = properties.getProperty(propertyName, fieldValue);
         return createRandomValue(cdrField);
     }

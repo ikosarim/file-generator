@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/file-generate.iml" filepath="$PROJECT_DIR$/.idea/modules/file-generate.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/file-generate_main.iml" filepath="$PROJECT_DIR$/.idea/modules/file-generate_main.iml" group="file-generate" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/file-generate_test.iml" filepath="$PROJECT_DIR$/.idea/modules/file-generate_test.iml" group="file-generate" />
     </modules>
   </component>
